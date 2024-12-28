@@ -22,6 +22,7 @@
 
 #include <fstream>
 #include <cmath>
+#include <unistd.h>
 
 using namespace std;
 
@@ -386,7 +387,7 @@ bool entornoCargarConfiguracion ( int &numFilas, int &numColumnas, int &comoInic
 	int i, j;
 	ifstream fEntrada;
 	string cadena, cad;
-	fEntrada.open("numberTiles.cnf");
+	fEntrada.open("./numberTiles.cnf");
 	if (fEntrada.is_open()) {
 		getline(fEntrada, cadena);
 		numFilas = atoi(cadena.c_str());

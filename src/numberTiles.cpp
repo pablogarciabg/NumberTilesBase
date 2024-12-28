@@ -133,4 +133,10 @@ void ejemplo() {
 	entornoTerminar();
 }
 
+int main() {
+	ejemplo();
+
+	return 0;
+}
+
 
