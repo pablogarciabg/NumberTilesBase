@@ -1,0 +1,20 @@
+6
+5
+0
+3
+16 8 32 4 2 16 8
+32 4 2 16 32 2 32
+16 64 2 4 8 32 8
+
+
+
+Línea 1: filas (fichas por columna). Entero entre 3 y 7, ambos incluidos
+Línea 2: columnas. Entero entre 5 y 7, ambos incluidos
+Línea 3: 0 si el tablero se lee desde fichero y mayor que 0 si se genera aleatoriamente el tablero. En 
+         este caso indica el exponente de la potencia de 2 que será el límite superior de los valores 
+         aleatorios generados. No debe ser mayor de 12
+Línea 4: nº de filas iniciales con valores
+Línea 5 y siguientes (si la linea 3 es 0): valores iniciales del tablero. Tienen que ser potencias de 2 inferiores a 4096. 
+		Tiene que haber (número de filas iniciales) x (número de columnas) valores.
+
+
