@@ -23,7 +23,7 @@ using namespace std;
 // -------------------------------------------------------------
 
 /*
- *  La constante MAX_FILAS define el número máximo de filas del tablero
+ *  La constante MAX_FIL define el número máximo de filas del tablero
  *  La constante MAX_COL define el número máximo de columnas del tablero
  */
 const int MAX_FILAS = 7;
@@ -47,7 +47,7 @@ enum TipoTecla {TNada, TEnter, TIzquierda, TDerecha, TSalir,TF1, TF2};
 
 
  /*
-  *	PRE:  { 3 <= filas <= MAX_FILAS,  5 <= columnas <= MAX_COL }
+  *	PRE:  { 3 <= filas <= MAX_FIL,  5 <= columnas <= MAX_COL }
   *	DESCRIPCIÓN: Inicia la interfaz gráfica del juego, preparada para
   *		  un tablero de filas x columnas casillas.
   */
@@ -74,25 +74,25 @@ void entornoTerminar ();
  *		   filasIniciales:   número de filas del tablero con valores iniciales
  *		   m:				 matriz que contiene los valores numéricos del tablero del juego. Solo si comoIniciar es 0.
  *
- *		Por omisión, el archivo numberTiles.cnf se encuentra en el directorio  del proyecto
+ *		Por omisión, el archivo numberTiles.config se encuentra en el directorio  del proyecto
  */
 bool entornoCargarConfiguracion ( int &numFilas, int &numColumnas,int &comoIniciar,int &filasIniciales, int m[MAX_FILAS][MAX_COL]);
 
 /*
-  *	PRE:  0 <= fila < MAX_FILAS,  0 <= columna < MAX_COL, numero es una potencia de 2
+  *	PRE:  0 <= fila < MAX_FIL,  0 <= columna < MAX_COL, numero es una potencia de 2
   *	DESCRIPCIÓN: Coloca en la posición indicada por fila y columna de la pantalla gráfica el número indicado
   *	dentro de un recuadro
 */
 void entornoPonerNumero         ( int fila, int columna, int numero);
 
 /*
-  *	PRE: { 0 <= fila < MAX_FILAS,  0 <= columna < MAX_COL, numero es una potencia de 2 }
+  *	PRE: { 0 <= fila < MAX_FIL,  0 <= columna < MAX_COL, numero es una potencia de 2 }
   *	DESCRIPCIÓN: Elimina de la posición indicada por fila y columna de la pantalla gráfica el número existente
 */
 void entornoEliminarNumero      ( int fila, int columna);
 
 /*
-  *	PRE: { 0 <= fila < MAX_FILAS,  0 <= columna < MAX_COL, numero es una potencia de 2 }
+  *	PRE: { 0 <= fila < MAX_FIL,  0 <= columna < MAX_COL, numero es una potencia de 2 }
   *	DESCRIPCIÓN: Coloca en la posición indicada por fila y columna el numero indicado
   *	dentro de un recuadro de color blanco.
   *	Sirve para la ampliación F2

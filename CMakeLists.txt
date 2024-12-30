@@ -22,7 +22,7 @@ add_executable(NumberTilesBase
     src/entorno.cpp
     src/entorno.h
     src/numberTiles.cpp
-    src/NumberTiles.h)
+    src/NumberTiles.h src/juego.cpp src/juego.h src/Tablero.cpp src/casilla.cpp src/pruebasTablero.cpp src/pruebasCasilla.cpp)
 
 TARGET_LINK_LIBRARIES(NumberTilesBase  allegro_acodec
         allegro_audio

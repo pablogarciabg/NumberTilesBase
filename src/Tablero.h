@@ -20,11 +20,11 @@ using namespace std;
  */
 
 
-//const int MAX_FILAS=7; //Valores entre 3 y 7
+const int MAX_FIL=7; //Valores entre 3 y 7
 const int MAX_COLUMNAS=7; //Valores entre 5 y 7
 
 
-typedef casilla TipoFila[MAX_FILAS];
+typedef casilla TipoFila[MAX_FIL];
 
 struct columna{
     int ocupadas;
@@ -38,7 +38,7 @@ typedef columna tablero[MAX_COLUMNAS];
 //POST={Pasa el numero de columna a base 0}
 void pasarColumnaBase0(int &col);
 
-//PRE={1<=fila<=MAX_FILAS}
+//PRE={1<=fila<=MAX_FIL}
 //COPLEJIDAD=O(1)
 //POST={Pasa el numero de filas a base 0}
 void pasarFilasBase0 (int &fila);
@@ -46,12 +46,12 @@ void pasarFilasBase0 (int &fila);
 //PRE={}
 //COMPLEJIDAD= O(n²)
 //POST={Vacia el tablero}
-void vaciarTablero (tablero t);
+void vaciarTablero (tablero &t);
 
-//PRE={fila >= 0, col >=0, filaInciales >=0}
+//PRE={fila >= 0, ncolumnas >=0, filaInciales >=0}
 //COMPLEJIDAD= O(n²)
 //POST={Inicia el tablero}
-void iniciarTableroAleatorio (tablero &t, int fila, int col, int filasIniciales);
+void iniciarTableroAleatorio (tablero &t, int fila, int ncolumnas, int filasIniciales);
 
 //PRE={fila >= 0, col >=0, valor=2^x (x>=1)}
 //COMPLEJIDAD=O(1)

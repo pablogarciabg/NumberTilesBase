@@ -31,9 +31,9 @@ void pasarFilasBase0 (int &fila){
     if (fila >= 1){
         fila--;
     }
-    if (fila==MAX_FILAS){ //Suponemos que nunca se introducen datos incorrectos
+    if (fila == MAX_FIL){ //Suponemos que nunca se introducen datos incorrectos
 
-        fila=MAX_FILAS-1;
+        fila= MAX_FIL - 1;
     }
     if (fila==0){ //Suponemos que nunca se introducen datos incorrectos
 
@@ -42,25 +42,24 @@ void pasarFilasBase0 (int &fila){
 }
 
 
-void vaciarTablero(tablero t) {
+void vaciarTablero(tablero &t) {
 
     for (int col = 0; col < MAX_COLUMNAS; col++) {
         t[col].ocupadas = 0;
-        for (int fila = 0; fila < MAX_FILAS; fila++) {
+        for (int fila = 0; fila < MAX_FIL; fila++) {
             vaciarCasilla(t[col].fila[fila]);
-
         }
     }
 }
 
 
-void iniciarTableroAleatorio(tablero &t, int nfila, int ncol, int filasIniciales) {
+void iniciarTableroAleatorio(tablero &t, int nfilas, int ncolumnas, int filasIniciales) {
 
     srand(time(NULL));
 
-    for (int col = 0; col < MAX_COLUMNAS; col++) { //columnaS
-        for (int fila = 0; fila < filasIniciales; fila++) {
-            ponerValor( t[col].fila[fila] , pow(2, 1 + rand() % 5));
+    for (int col = 0; col < ncolumnas; col++) { //columnaS
+        for (int fila = 0; fila < nfilas; fila++) {
+            ponerValor( t[col].fila[fila] , pow(2, 1 + rand() % 8));
 
 
         }
@@ -68,8 +67,8 @@ void iniciarTableroAleatorio(tablero &t, int nfila, int ncol, int filasIniciales
     }
 
     //Inicializacion del resto de casillas a 0, estan vacias
-    for (int col = 0; col < MAX_COLUMNAS; col++) {
-        for (int fila = filasIniciales; fila < MAX_FILAS; fila++) {
+    for (int col = 0; col < ncolumnas; col++) {
+        for (int fila = filasIniciales; fila < nfilas; fila++) {
             ponerValor(t[col].fila[fila], 0);
         }
     }
@@ -83,7 +82,7 @@ void ponerValorTablero(tablero &t, int fila, int col, int valor) {
 
     ponerValor(t[col].fila[fila], valor);
     //t[col].fila[fila] = valor;
-    t[col].ocupadas++;
+    t[col].ocupadas = t[col].ocupadas + 1;
 
 }
 
@@ -124,7 +123,7 @@ bool estaLlenaColumnaTablero(tablero t, int col) {
     bool llena = true;
     int cont = 0;
     int fila = 0;
-    while (llena == true && fila < MAX_FILAS) {
+    while (llena == true && fila < MAX_FIL) {
 
         if (obtenerValorCasilla(t[col].fila[fila]) != 0) {
             cont++;
@@ -142,7 +141,7 @@ int obtenerPosicionVaciaColumnaTablero(tablero t, int col) {
     pasarColumnaBase0(col);
 
     int fila = t[col].ocupadas;
-    if (fila>=MAX_FILAS){
+    if (fila >= MAX_FIL){
         fila=-2;
     }
 
@@ -170,7 +169,7 @@ bool estaLlenoTablero(tablero t) {
         columnas++;
     }
 
-    if (cont == MAX_FILAS) {
+    if (cont == MAX_FIL) {
         lleno = true;
     }
 
@@ -179,7 +178,7 @@ bool estaLlenoTablero(tablero t) {
 }
 
 int obtenerNumFilas(tablero t) {
-    return MAX_FILAS;
+    return MAX_FIL;
 }
 
 int obtenerNumColumnas(tablero t) {

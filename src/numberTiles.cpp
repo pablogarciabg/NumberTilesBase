@@ -7,6 +7,8 @@
 
 
 #include "entorno.h"
+#include "juego.h"
+#include "Tablero.h"
 //#include "casilla.h"
 
 #include <iostream>
@@ -16,7 +18,7 @@
 using namespace std;
 
 // Módulo donde se prueban algunas operaciones del entorno
-// Se carga la configuración que hay en el fichero numberTiles.cnf
+// Se carga la configuración que hay en el fichero numberTiles.config
 // Se inicia un tablero con la información de la configuración
 // Se genera un número aleatorio en el lanzador, la parte inferior del tablero
 // Se inicia elbucle de procesamiento de las teclas:
@@ -25,12 +27,15 @@ using namespace std;
 // Se aconseja modificar los valores del fichero de configuración para ver
 // cómo cambia este ejemplo.
 //
+
 void ejemplo() {
 	string msg;
 	msg = " ";
 	bool salir = false;
 
 	TipoTecla tecla;
+
+    //tablero t
 
 
 	srand (time(NULL));
@@ -52,6 +57,8 @@ void ejemplo() {
 	// m: matriz de enteros con los valores iniciales para el tablero si comoIniciar es igual a 0
 
 	if (entornoCargarConfiguracion(numFilas, numColumnas, comoIniciar, filasIniciales, m)){
+
+        //convertir ese M en nuestro Tablero
 
 		entornoIniciar(numFilas, numColumnas);
 
@@ -134,7 +141,11 @@ void ejemplo() {
 }
 
 int main() {
-	ejemplo();
+
+    Juego juego;
+
+    inicializarJuego(juego);
+    play(juego);
 
 	return 0;
 }

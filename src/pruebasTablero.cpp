@@ -19,7 +19,7 @@ void pruebasVaciarTablero() {
     vaciarTablero(t);
 
     for (columna = 0; columna < MAX_COLUMNAS; columna++) {
-        for (fila = 0; fila < MAX_FILAS; fila++) {
+        for (fila = 0; fila < MAX_FIL; fila++) {
             if (obtenerValorTablero(t, fila, columna) != 0) {
                 cont++;
             }
@@ -118,7 +118,7 @@ void pruebaIniciarTableroAleatorio() {
     while (correcto && col < MAX_COLUMNAS) {
         //Comprobar las filas
         int fil = filasInciales;
-        while (correcto && fil < MAX_FILAS) {
+        while (correcto && fil < MAX_FIL) {
             if (obtenerValorCasilla(t[col].fila[fil]) != 0) {
                 cout << "Error al iniciar el resto del tablero: Fila= " << fil << " Columna= " << col
                      << " Tiene que tener el valor 0\n";
@@ -336,14 +336,14 @@ void pruebasEstaLlenaColumnaTablero() {
     pasarColumnaBase0(columna);
 
     //LLenamos la fila 2, para comprobar que funciona la funcion
-    for (int fila = 0; fila < MAX_FILAS; fila++) {
+    for (int fila = 0; fila < MAX_FIL; fila++) {
         ponerValorTablero(t, fila, columna, valor);
     }
 
     estaLlenaColumnaTablero(t, columna);
     bool llena = true;
     int fila = 0;
-    while (llena && fila < MAX_FILAS) {
+    while (llena && fila < MAX_FIL) {
         if (obtenerValorTablero(t, fila, columna) == 0) {
             llena = false;
         } else {
@@ -396,7 +396,7 @@ void pruebasObtenerPosicionVaciaColumnaTablero02() {
     vaciarTablero(t);
     columna = 1;
 
-    for (fila = 1; fila <= MAX_FILAS; fila++) {
+    for (fila = 1; fila <= MAX_FIL; fila++) {
         ponerValorTablero(t, fila, columna, 16);
     }
 
@@ -420,11 +420,11 @@ void pruebasObtenerPosicionVaciaColumnaTablero03() {
     vaciarTablero(t);
     columna = 5;
 
-    for (fila = 1; fila <= MAX_FILAS - 1; fila++) {
+    for (fila = 1; fila <= MAX_FIL - 1; fila++) {
         ponerValorTablero(t, fila, columna, 16);
     }
 
-    if (obtenerPosicionVaciaColumnaTablero(t, columna) != MAX_FILAS) {
+    if (obtenerPosicionVaciaColumnaTablero(t, columna) != MAX_FIL) {
         cout << "Error al obtener la primera casilla vacia de la columna " << columna << "\n";
     }
 
@@ -462,7 +462,7 @@ void pruebasEstaLlenoTablero() {
 
 void pruebasObtenerNumFilas() {
     tablero t;
-    int filasMAX = MAX_FILAS;
+    int filasMAX = MAX_FIL;
     if (obtenerNumFilas(t) != filasMAX) {
         cout << "Error al devolver el numero de filas\n";
     }
