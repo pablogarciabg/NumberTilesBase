@@ -86,6 +86,8 @@ void ponerValorTablero(tablero &t, int fila, int col, int valor) {
 
 }
 
+int
+
 int obtenerValorTablero(tablero t, int fila, int col) {
 
     pasarFilasBase0(fila);

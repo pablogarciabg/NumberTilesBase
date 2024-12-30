@@ -19,6 +19,7 @@ struct Juego {
     Config config;
     tablero tab;
     int puntuacion;
+
 };
 
 
