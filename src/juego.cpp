@@ -83,7 +83,6 @@ void play(Juego &juego) {
     int valorLanzador = pow(2, 1 + rand() % 8);
 
     TipoTecla tecla;
-    columna colActiva;
 
     entornoPonerNumeroLanzador(valorLanzador, columna - 1);
     entornoPonerPuntuacion(juego.puntuacion);
@@ -93,26 +92,25 @@ void play(Juego &juego) {
 
         switch (tecla) {
             case TEnter: {
-                entornoQuitarNumeroLanzador(columna - 1);
-
 
                 int valorSuma = 0;
                 int cont;
                 cont = 0;
 
-                if (juego.tab[columna - 1].ocupadas < juego.config.totalFilas) {
+                if (juego.tab[columna-1].ocupadas < juego.config.totalFilas) {
+                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
 
-                    entornoPonerNumero(juego.tab[columna - 1].ocupadas, columna - 1, valorLanzador);
-                    ponerValorTablero(juego.tab, fila, columna, valorLanzador);
+                    cout<<"colActiva:"<<columna<<" valorLanzador"<<valorLanzador<<"\n";
+                    ponerValorTablero(juego.tab, juego.tab[columna-1].ocupadas, columna, valorLanzador);
+                    entornoPonerNumero(juego.tab[columna-1].ocupadas-1, columna - 1, valorLanzador);
 
-                    int valorAnteriorVertical = juego.tab[columna - 1].ocupadas - 1;
-                    int valorActualVertical = juego.tab[columna - 1].ocupadas;
+                    //dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
 
-                    if (valorAnteriorVertical == valorActualVertical) {
-                        valorSuma = valorAnteriorVertical + valorActualVertical;
-                        ponerValorTablero(juego.tab, fila, columna, valorSuma);
-                        entornoPonerNumero(valorAnteriorVertical, columna - 1, valorSuma);
-                    }
+                    //En este punto se ha finaliado el introducir valor en columna
+                    valorLanzador = pow(2, 1 + rand() % 8);
+//                    entornoQuitarNumeroLanzador(columna - 1);
+
+                    entornoPonerNumeroLanzador(valorLanzador,columna-1);
                 }
 
 
@@ -142,12 +140,6 @@ void play(Juego &juego) {
 //                    entornoPonerNumero(fila-2, columna-1, valorSuma);
 //                    juego.tab[columna-1].ocupadas--;
 //                }
-
-
-
-
-                valorLanzador = pow(2, 1 + rand() % 8);
-                entornoPonerNumeroLanzador(valorLanzador, columna - 1);
             }
 
                 break;
@@ -170,6 +162,7 @@ void play(Juego &juego) {
                 } else {
                     columna = juego.config.totalColumnas;
                 }
+
                 entornoPonerNumeroLanzador(valorLanzador, columna - 1);
 
                 break;

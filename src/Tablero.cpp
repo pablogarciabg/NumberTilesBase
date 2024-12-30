@@ -75,18 +75,60 @@ void iniciarTableroAleatorio(tablero &t, int nfilas, int ncolumnas, int filasIni
 
 }
 
+void aplicarNuevoValorFila(tablero &t,int colActiva) {
+    int filaCheck, valorActual, valorPrevio;
+
+    if (t[colActiva].ocupadas<=1) {
+        cout<<"AplicarNuevoValorFila.No-existen-suficientes-filas-ocupadas\n";
+        return;
+    }
+
+    filaCheck=t[colActiva].ocupadas-1;
+    valorActual = t[colActiva].fila[filaCheck];
+    valorPrevio = t[colActiva].fila[filaCheck-1];
+
+    bool continuar=true;
+
+    while (continuar) {
+       cout<<"aplicarNuevoValorFila: valorAct:"<<valorActual<<";"<<valorPrevio<<"\n";
+       if (valorActual==valorPrevio) {
+           //aplicar fusión
+           cout<<"Debería aplicar fusion\n";
+
+           //Una vez fusiona, habría que continuar
+
+           filaCheck=filaCheck-1;
+           valorActual = t[colActiva].fila[filaCheck];
+           valorPrevio = t[colActiva].fila[filaCheck-1];
+       }
+       else {
+           continuar=false;
+       }
+    }
+}
+
 void ponerValorTablero(tablero &t, int fila, int col, int valor) {
 
     pasarFilasBase0(fila);
     pasarColumnaBase0(col);
 
-    ponerValor(t[col].fila[fila], valor);
+    //ponerValor(t[col].fila[fila], valor);
+    t[col].fila[t[col].ocupadas]=valor;
     //t[col].fila[fila] = valor;
     t[col].ocupadas = t[col].ocupadas + 1;
 
+    dumpColumna(t,6,col);
+
+    aplicarNuevoValorFila(t, col);
 }
 
-int
+void dumpColumna(tablero &t, int nfilas,int col) {
+    cout<<"\nVolcado-columna: "<<col<<"\n filas: ";
+    for (int fila=0; fila < nfilas; fila++) {
+        cout<<t[col].fila[fila]<<"; ";
+    }
+    cout<<"Ocupadas:"<<t[col].ocupadas<<"\n";
+}
 
 int obtenerValorTablero(tablero t, int fila, int col) {
 

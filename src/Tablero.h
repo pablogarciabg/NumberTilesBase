@@ -26,12 +26,12 @@ const int MAX_COLUMNAS=7; //Valores entre 5 y 7
 
 typedef casilla TipoFila[MAX_FIL];
 
-struct columna{
+struct Columna{
     int ocupadas;
     TipoFila fila;
 };
 
-typedef columna tablero[MAX_COLUMNAS];
+typedef Columna tablero[MAX_COLUMNAS];
 
 //PRE={1<=col<=MAX_COLUMNAS}
 //COMPLEJIDAD=O(1)
@@ -99,8 +99,8 @@ int obtenerNumFilas (tablero t);
 //POST={Devueve el numero de columnas que tiene el tablero}
 int obtenerNumColumnas(tablero t);
 
+void dumpColumna(tablero &t, int nfilas,int col);
 
-
-
+void aplicarNuevoValorFila(tablero &t,int colActiva);
 
 #endif //UNI_PROJECTS_TABLERO_H
