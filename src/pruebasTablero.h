@@ -53,6 +53,8 @@ void pruebasObtenerNumColumnas();
 
 void pruebasGeneralesTablero();
 
+void pruebasFusionValoresVerticalesTablero ();
+
 
 
 

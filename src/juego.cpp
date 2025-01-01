@@ -8,11 +8,26 @@
 #include "cmath"
 #include <iostream>
 
+void repintarTablero(Juego &juego) {
+    for (int col = 0; col < juego.config.totalColumnas; ++col) {
+        for (int fila = 0; fila < juego.tab[col].ocupadas; ++fila) {
+            entornoPonerNumero(fila,col,juego.tab[col].fila[fila]);
+        }
+    }
+
+    //Quitar las no ocupadas
+    for (int col = 0; col < juego.config.totalColumnas; ++col) {
+        for (int fila = juego.tab[col].ocupadas; fila < juego.config.totalFilas; ++fila) {
+            entornoEliminarNumero(fila,col);
+        }
+    }
+}
+
 void convertirMatrizTablero(tablero &tab, int filas, int columnas, int filasIniciales, int m[MAX_FILAS][MAX_COL]) {
 
     for (int col = 1; col <= columnas; col++) {
         for (int fila = 1; fila <= filasIniciales; fila++) {
-            ponerValorTablero(tab, fila, col, m[col - 1][fila - 1]);
+            ponerValorTablero(tab, col, m[col - 1][fila - 1]);
 //            tab[col].fila[fila]=m[col][fila];
         }
     }
@@ -69,6 +84,8 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
     juego.config.totalFilas = nfilas;
 }
 
+
+
 void play(Juego &juego) {
 
     const int BASE_INICIO = 1;
@@ -101,8 +118,20 @@ void play(Juego &juego) {
                     dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
 
                     cout<<"colActiva:"<<columna<<" valorLanzador"<<valorLanzador<<"\n";
-                    ponerValorTablero(juego.tab, juego.tab[columna-1].ocupadas, columna, valorLanzador);
+                    ponerValorTablero(juego.tab, columna, valorLanzador);
+
                     entornoPonerNumero(juego.tab[columna-1].ocupadas-1, columna - 1, valorLanzador);
+
+                    if (aplicarNuevoValorFila(juego.tab,columna)) {
+                        repintarTablero(juego);
+//                        int filaFusion = juego.tab[columna-1].ocupadas-1;
+//                        entornoEliminarNumero(filaFusion,columna-1); //Eliminar la última casilla
+//                        entornoPonerNumero(filaFusion-1,columna-1, obtenerValorTablero(juego.tab,filaFusion-1,columna-1)); //poner valor fusionado
+                    }
+
+                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
+
+
 
                     //dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
 

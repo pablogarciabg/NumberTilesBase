@@ -10,6 +10,7 @@
 #include "juego.h"
 #include "Tablero.h"
 //#include "casilla.h"
+#include "pruebasTablero.h"
 
 #include <iostream>
 #include <cmath>
@@ -140,12 +141,20 @@ void ejemplo() {
 	entornoTerminar();
 }
 
+//int playJuego() {
+//
+//
+//    inicializarJuego(juego);
+//}
+
 int main() {
 
     Juego juego;
 
     inicializarJuego(juego);
     play(juego);
+
+//    pruebasGeneralesTablero();
 
 	return 0;
 }

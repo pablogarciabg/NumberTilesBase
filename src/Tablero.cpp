@@ -10,7 +10,7 @@ using namespace std;
 #include "Tablero.h"
 #include "casilla.h"
 #include "entorno.h"
-
+#include "juego.h"
 
 
 void pasarColumnaBase0(int &col){
@@ -72,15 +72,32 @@ void iniciarTableroAleatorio(tablero &t, int nfilas, int ncolumnas, int filasIni
             ponerValor(t[col].fila[fila], 0);
         }
     }
-
 }
 
-void aplicarNuevoValorFila(tablero &t,int colActiva) {
+/*
+ * Encarga de fusionar las 2 últimas casillas de una columna.
+ */
+void fusionFilaAdyacentes (tablero &t, int colActiva, int valorActual, int valorPrevio){
+
+    int sumaValor;
+    sumaValor = valorPrevio + valorActual;
+    t[colActiva].fila[t[colActiva].ocupadas-2]=sumaValor;
+    t[colActiva].ocupadas=t[colActiva].ocupadas-1; //Poner valor tablero suma+1 a ocupadas, pero en caso de fusión no es requerido.
+    for (int fila = t[colActiva].ocupadas; fila < MAX_FIL; ++fila) {
+        t[colActiva].fila[fila]=0;
+    }
+}
+
+bool aplicarNuevoValorFila(tablero &t,int colActiva) {
+    pasarColumnaBase0(colActiva);
+
     int filaCheck, valorActual, valorPrevio;
+    bool hayFusion=false;
+
 
     if (t[colActiva].ocupadas<=1) {
         cout<<"AplicarNuevoValorFila.No-existen-suficientes-filas-ocupadas\n";
-        return;
+        return hayFusion;
     }
 
     filaCheck=t[colActiva].ocupadas-1;
@@ -94,6 +111,8 @@ void aplicarNuevoValorFila(tablero &t,int colActiva) {
        if (valorActual==valorPrevio) {
            //aplicar fusión
            cout<<"Debería aplicar fusion\n";
+           fusionFilaAdyacentes(t, colActiva, valorActual, valorPrevio);
+           hayFusion=true;
 
            //Una vez fusiona, habría que continuar
 
@@ -105,21 +124,22 @@ void aplicarNuevoValorFila(tablero &t,int colActiva) {
            continuar=false;
        }
     }
+
+    return hayFusion;
 }
 
-void ponerValorTablero(tablero &t, int fila, int col, int valor) {
 
-    pasarFilasBase0(fila);
+
+void ponerValorTablero(tablero &t, int col, int valor) {
+
     pasarColumnaBase0(col);
 
     //ponerValor(t[col].fila[fila], valor);
+
+    //Asigna a la fila siguiente libre (valor ocupadas en base 1) el valor a poner en la columna.
     t[col].fila[t[col].ocupadas]=valor;
-    //t[col].fila[fila] = valor;
+
     t[col].ocupadas = t[col].ocupadas + 1;
-
-    dumpColumna(t,6,col);
-
-    aplicarNuevoValorFila(t, col);
 }
 
 void dumpColumna(tablero &t, int nfilas,int col) {
@@ -137,6 +157,13 @@ int obtenerValorTablero(tablero t, int fila, int col) {
 
     return obtenerValorCasilla(t[col].fila[fila]);
 
+}
+
+int obtenerValorOcupadas(tablero t, int col) {
+
+    pasarColumnaBase0(col);
+
+    return t[col].ocupadas;
 }
 
 bool estaVaciaCasillaTablero(tablero t, int fila, int col) {

@@ -56,7 +56,7 @@ void iniciarTableroAleatorio (tablero &t, int fila, int ncolumnas, int filasInic
 //PRE={fila >= 0, col >=0, valor=2^x (x>=1)}
 //COMPLEJIDAD=O(1)
 //POST={Asigna un valor a la casilla indicada}
-void ponerValorTablero (tablero &t, int fila, int col, int valor);
+void ponerValorTablero (tablero &t,int col, int valor);
 
 
 //PRE={fila >= 0, col >=0}
@@ -99,8 +99,12 @@ int obtenerNumFilas (tablero t);
 //POST={Devueve el numero de columnas que tiene el tablero}
 int obtenerNumColumnas(tablero t);
 
+int obtenerValorOcupadas(tablero t, int col);
+
 void dumpColumna(tablero &t, int nfilas,int col);
 
-void aplicarNuevoValorFila(tablero &t,int colActiva);
+bool aplicarNuevoValorFila(tablero &t,int colActiva);
+
+void fusionFilaAdyacentes (tablero &t, int colActiva, int valorActual, int valorPrevio);
 
 #endif //UNI_PROJECTS_TABLERO_H
