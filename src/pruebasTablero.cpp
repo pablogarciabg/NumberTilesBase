@@ -479,119 +479,108 @@ void pruebasObtenerNumColumnas() {
     }
 }
 
-void pruebaFusionColumna() { //Tablero 6x5
+void pruebaFusionCaso2() {
+    cout << "\n-- inicio prueba fusion-casillas caso-2\n";
+
     tablero t;
     vaciarTablero(t);
 
-    //Primer caso, llenamos el tablero con numeros aleatorios hasta filasAleatorias, y luego ponemos numeros iguales
-    /* ESCENARIO PLANTEADO
-     *  8 16 32
-     *  2  4 16
-     * "2" <- fusión aquí
-     * */
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 4  2  8
+     * 64 4  16
+     * 4  4  <-Insercion aqui
+     */
 
-    /* CREAR ESCENARIO FUSION VERTICAL,DENTRO DE UNA COLUMNA, LAS ÚLTIMAS 2 CASILLAS.*/
-    {
-        int columna = 1;
-        ponerValorTablero(t, columna, 8);
-        ponerValorTablero(t, columna, 2);
-        columna = 2;
-        ponerValorTablero(t, columna, 16);
-        ponerValorTablero(t, columna, 4);
-        columna = 3;
-        ponerValorTablero(t, columna, 32);
-        ponerValorTablero(t, columna, 16);
+    //
+    columna = 1;
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 64);
+    ponerValorTablero(t, columna, 4);
 
-        //Actuar
-        int colActuar = 1;
-        ponerValorTablero(t, colActuar, 2);
-        aplicarNuevoValorFila(t, colActuar);
+    columna = 2;
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 4);
 
-        //Verificar
-        // a) total ocupadas columna=1 es 2;
-        if (obtenerValorOcupadas(t,colActuar) != 2) {
-            cout << "error: pruebaFusionColumna. escenario-1. Valor ocupadas deberia ser 2\n";
-        }
+    columna = 3;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 16);
 
-        // b) valor fila=2 en columna=1 es 4;
-        if (obtenerValorTablero(t, 2, colActuar) != 4) {
-            cout << "error: pruebaFusionColumna. escenario-1. Valor fila-2 deberia ser 4\n";
-        }
+    //Actuar
+    int colActuar = 2;
+    int resultadoEsperado = 16;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 2) {
+        cout << "Error al obtener ocupadas en columna 2, caso 2\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar-1) != 2) {
+        cout << "Error al obtener ocupadas en columna 1, caso 2\n";
     }
 
-
-    //Segundo caso, llenamos el tablero con numeros aleatorios hasta filasAleatorias, y luego ponemos numeros iguales
-    /* ESCENARIO PLANTEADO
-     *  8 16 32
-     *      "32" <- fusión aquí
-     * */
-    {
-        vaciarTablero(t);
-
-        int columna = 1;
-        ponerValorTablero(t, columna, 8);
-        columna = 2;
-        ponerValorTablero(t, columna, 16);
-        columna = 3;
-        ponerValorTablero(t, columna, 32);
-
-        //Actuar
-        int colActuar = 3;
-        ponerValorTablero(t, colActuar, 32);
-        aplicarNuevoValorFila(t, colActuar);
-
-        //Verificar
-        // a) total ocupadas columna=1 es 2;
-        if (obtenerValorOcupadas(t,colActuar) != 1) {
-            cout << "error: pruebaFusionColumna. escenario-2. Valor ocupadas deberia ser 1\n";
-        }
-
-        // b) valor fila=1 en columna=3 es 32;
-        if (obtenerValorTablero(t, 1, colActuar) != 64) {
-            cout << "error: pruebaFusionColumna. escenario-2. Valor fila-1 deberia ser 64\n";
-        }
+    if (obtenerValorTablero(t, 2, colActuar) != resultadoEsperado) {
+        cout << "Error en la fusion de casillas, caso 2\n";
     }
 
-    //Tercer caso, llenamos el tablero con numeros aleatorios hasta filasAleatorias, y luego ponemos numeros iguales
-    /* ESCENARIO PLANTEADO
-     *  4 16 32
-     *  2  4 16
-     * "2" <- fusión 3 filas
-     * */
-    /* ESCENARIO RESULTANTE
-    *  8 16 32
-    *     4 16
-    * */
+    cout << "-- fin prueba fusion-casillas caso-2\n";
+}
 
-    {
-        vaciarTablero(t);
+void pruebaFusionCaso6() {
 
-        int columna = 1;
-        ponerValorTablero(t, columna, 4);
-        ponerValorTablero(t, columna, 2);
-        columna = 2;
-        ponerValorTablero(t, columna, 16);
-        ponerValorTablero(t, columna, 4);
-        columna = 3;
-        ponerValorTablero(t, columna, 32);
-        ponerValorTablero(t, columna, 16);
+    cout << "\n-- inicio prueba fusion-casillas caso-6\n";
 
-        //Actuar
-        int colActuar = 1;
-        ponerValorTablero(t, colActuar, 2);
-        aplicarNuevoValorFila(t, colActuar);
+    tablero t;
+    vaciarTablero(t);
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 4    2   8
+     * 64   32  4
+     *          4    <-Insercion aqui
+     *
+     * ESCENARIO RESULTANTE
+     * 4    2   8
+     * 64   32  8
+     */
 
-        //Verificar
-        // a) total ocupadas columna=1 es 1;
-        if (obtenerValorOcupadas(t,colActuar) != 1) {
-            cout << "error: pruebaFusionColumna. escenario-3. Valor ocupadas deberia ser 1\n";
-        }
+    columna = 1;
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 64);
 
-        // b) valor fila=1 en columna=1 es ;
-        if (obtenerValorTablero(t, 1, colActuar) != 8) {
-            cout << "error: pruebaFusionColumna. escenario-3. Valor fila-1 deberia ser 8\n";
-        }
+    columna = 2;
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 32);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 4);
+
+
+    //Actuar
+    ponerValorTablero(t, columna, 4);
+    aplicarNuevoValorFila(t, columna);
+
+    //Verificar
+    // a) total ocupadas columna=3 es 2;
+    if (obtenerValorOcupadas(t, columna) != 2) {
+        cout << "Error al obtener ocupadas en columna 3, caso 6\n";
     }
+
+    // b) valor fila=2 en columna=3 es 8;
+    if (obtenerValorTablero(t, 1, columna) != 8) {
+        cout << "Error en la fusion de casillas, caso 6\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-6\n";
+
+}
+
+void pruebaFusionCasillas() { //Tablero 6x5
+    pruebaFusionCaso2();
+    pruebaFusionCaso6();
 
 }
 
@@ -674,14 +663,13 @@ void pruebasGeneralesTablero() {
 
     cout << "\n";
 
-    cout << "INCIO DE LAS PRUEBAS OBTENER EL NUMERO DE COLUMNAS TABLERO\n";
+    cout << "\nINCIO DE LAS PRUEBAS OBTENER EL NUMERO DE COLUMNAS TABLERO\n";
 //    pruebasObtenerNumColumnas();
     cout << "FIN DE LAS PRUEBAS OBTENER EL NUMERO DE COLUMNAS TABLERO\n";
 
-    cout << "INCIO DE LAS PRUEBAS FUSION VALORES VERTICALES TABLERO\n";
-//    pruebasFusionValoresVerticalesTablero();
-    pruebaFusionColumna();
-    cout << "FIN DE LAS PRUEBAS FUSION VALORES VERTICALES TABLERO\n";
+    cout << "\nINCIO DE LAS PRUEBAS FUSION VALORES TABLERO\n";
+    pruebaFusionCasillas();
+    cout << "FIN DE LAS PRUEBAS FUSION VALORES TABLERO\n";
 
     cout << "\n";
 

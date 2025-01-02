@@ -149,12 +149,12 @@ void ejemplo() {
 
 int main() {
 
-    Juego juego;
+//    Juego juego;
+//
+//    inicializarJuego(juego);
+//    play(juego);
 
-    inicializarJuego(juego);
-    play(juego);
-
-//    pruebasGeneralesTablero();
+    pruebasGeneralesTablero();
 
 	return 0;
 }
