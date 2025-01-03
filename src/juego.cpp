@@ -10,17 +10,23 @@
 
 void repintarTablero(Juego &juego) {
     for (int col = 0; col < juego.config.totalColumnas; ++col) {
+        for (int fila = 0; fila < juego.config.totalFilas; ++fila) {
+            entornoEliminarNumero(fila,col);
+        }
+    }
+
+    for (int col = 0; col < juego.config.totalColumnas; ++col) {
         for (int fila = 0; fila < juego.tab[col].ocupadas; ++fila) {
             entornoPonerNumero(fila,col,juego.tab[col].fila[fila]);
         }
     }
 
     //Quitar las no ocupadas
-    for (int col = 0; col < juego.config.totalColumnas; ++col) {
-        for (int fila = juego.tab[col].ocupadas; fila < juego.config.totalFilas; ++fila) {
-            entornoEliminarNumero(fila,col);
-        }
-    }
+//    for (int col = 0; col < juego.config.totalColumnas; ++col) {
+//        for (int fila = obtenerValorOcupadas(juego.tab, col); fila < juego.config.totalFilas; ++fila) {
+//            entornoEliminarNumero(fila,col);
+//        }
+//    }
 }
 
 void convertirMatrizTablero(tablero &tab, int filas, int columnas, int filasIniciales, int m[MAX_FILAS][MAX_COL]) {
@@ -91,7 +97,7 @@ void play(Juego &juego) {
     const int BASE_INICIO = 1;
     int columna, fila;
     columna = BASE_INICIO;
-    fila = juego.config.filasIniciales;
+    fila= obtenerValorOcupadas(juego.tab, columna);
 
     string msg;
     msg = " ";
@@ -111,25 +117,28 @@ void play(Juego &juego) {
             case TEnter: {
 
                 int valorSuma = 0;
+
                 int cont;
                 cont = 0;
 
-                if (juego.tab[columna-1].ocupadas < juego.config.totalFilas) {
-                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
+                if (obtenerValorOcupadas(juego.tab, columna) < juego.config.totalFilas) {
+                    dumpTablero(juego.tab,juego.config.totalFilas,juego.config.totalColumnas);
 
                     cout<<"colActiva:"<<columna<<" valorLanzador"<<valorLanzador<<"\n";
                     ponerValorTablero(juego.tab, columna, valorLanzador);
 
-                    entornoPonerNumero(juego.tab[columna-1].ocupadas-1, columna - 1, valorLanzador);
+                    entornoPonerNumero(obtenerValorOcupadas(juego.tab,columna)-1, columna - 1, valorLanzador);
 
                     if (aplicarNuevoValorFila(juego.tab,columna)) {
                         repintarTablero(juego);
+                        cout<<"Se ha repintado el tablero";
 //                        int filaFusion = juego.tab[columna-1].ocupadas-1;
 //                        entornoEliminarNumero(filaFusion,columna-1); //Eliminar la última casilla
 //                        entornoPonerNumero(filaFusion-1,columna-1, obtenerValorTablero(juego.tab,filaFusion-1,columna-1)); //poner valor fusionado
                     }
 
-                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
+//                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
+                    dumpTablero(juego.tab,juego.config.totalFilas,juego.config.totalColumnas);
 
 
 
@@ -144,8 +153,8 @@ void play(Juego &juego) {
 
 
                 //Si el tablero se llena entonces, el juego acaba
-                for (int col = 0; col < juego.config.totalColumnas; col++) {
-                    if (juego.tab[col].ocupadas == juego.config.totalFilas) {
+                for (int col = 1; col <= juego.config.totalColumnas; col++) {
+                    if (obtenerValorOcupadas(juego.tab, col) == juego.config.totalFilas) {
                         cont++;
                     }
                 }

@@ -115,6 +115,9 @@ void fusionTriple(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionTripe aplicada\n";
 }
 
 void fusionDobleIzq(tablero &t, int columna, int fila) {
@@ -132,6 +135,9 @@ void fusionDobleIzq(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionDobleIzq aplicada\n";
 }
 
 void fusionDobleDer(tablero &t, int columna, int fila) {
@@ -139,6 +145,7 @@ void fusionDobleDer(tablero &t, int columna, int fila) {
     int valorDer, valorSuperior, valorActual, resultadoFusion;
     valorDer = obtenerValorTablero(t, fila, columna + 1);
     valorSuperior = obtenerValorTablero(t, fila - 1, columna);
+    valorActual = obtenerValorTablero(t, fila, columna);
 
     resultadoFusion = valorSuperior + valorDer + valorActual;
 
@@ -147,6 +154,9 @@ void fusionDobleDer(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionDobleDer aplicada\n";
 }
 
 void fusionSimpleDer(tablero &t, int columna, int fila) {
@@ -162,12 +172,15 @@ void fusionSimpleDer(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna + 1);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionSimpleDer aplicada\n";
 }
 
 void fusionSimpleIzq(tablero &t, int columna, int fila) {
 
     int valorIzq, resultadoFusion, valorActual;
-    valorIzq = obtenerValorTablero(t, fila, columna + 1);
+    valorIzq = obtenerValorTablero(t, fila, columna -1);
     valorActual= obtenerValorTablero(t, fila, columna);
 
 
@@ -177,6 +190,9 @@ void fusionSimpleIzq(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna - 1);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionSimpleIzq aplicada\n";
 }
 
 void fusionSimpleSup(tablero &t, int columna, int fila) {
@@ -192,6 +208,51 @@ void fusionSimpleSup(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
+    aproximarValorPotencia(t, fila, columna);
+
+    cout<<"fusionSimpleSup aplicada\n";
+}
+
+void aproximarValorPotencia (tablero &t, int fila, int colunma){ //Usamos fila, ya que dentro llamamamos a "obtenerValorTablero"
+
+    int MAX_EXPONENTE = 8;
+    int expAnterior;
+    expAnterior = 1;
+    int expPosterior;
+    expPosterior = expAnterior + 1;
+    int nuevoValorTablero = 0;
+    int numTablero = obtenerValorTablero(t, fila, colunma);
+    bool reemplazado = false;
+    int potenciaAnterior = pow (2, expAnterior);
+    int potenciaSuperior = pow (2, expPosterior);
+
+
+    while (!reemplazado && potenciaSuperior <= 257){
+        if ((potenciaAnterior < numTablero) && (potenciaSuperior > numTablero)){
+            if ((numTablero - potenciaAnterior) < (potenciaSuperior - numTablero)){
+                nuevoValorTablero = pow(2, expAnterior);
+                reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
+                reemplazado = true;
+            }
+            if ((numTablero - potenciaAnterior) > (potenciaSuperior - numTablero)){
+                nuevoValorTablero = pow(2, expPosterior);
+                reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
+                reemplazado = true;
+            }
+
+
+        }
+
+        if (numTablero == pow(2, 0)){
+            nuevoValorTablero = 2;
+            reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
+        }
+        expAnterior++;
+        expPosterior = expAnterior + 1;
+        potenciaAnterior = pow (2, expAnterior);
+        potenciaSuperior = pow (2, expPosterior);
+
+    }
 }
 
 
@@ -201,16 +262,16 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
 //    colActiva++;
 
 
-    int filaCheck, valorActual, valorSup, valorIzq, valorDer;
+    int filaCheck, valorActual=-1, valorSup=-1, valorIzq=-1, valorDer=-1;
     bool hayFusion = false;
 
 
-    if (t[colActiva-1].ocupadas <= 1) {
+    if (obtenerValorOcupadas(t,colActiva) <= 1) {
         cout << "AplicarNuevoValorFila.No-existen-suficientes-filas-ocupadas\n";
         return hayFusion;
     }
 
-    filaCheck = t[colActiva-1].ocupadas;  //TODO: CAMBIAR-BASE (t[colActiva].ocupadas-1)
+    filaCheck = obtenerValorOcupadas(t,colActiva);  //TODO: CAMBIAR-BASE (t[colActiva].ocupadas-1)
     valorActual = obtenerValorTablero(t,filaCheck,colActiva);
 
     /* Caso 1:      4
@@ -219,10 +280,24 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
         *  Si izq y der y arriba == valor col/fila ==> aplicar fusión
         */
     {
+        if ((filaCheck-1)>=1) {
+            valorSup = obtenerValorTablero(t, filaCheck - 1, colActiva);
+        } else {
+            valorSup=-1;
+        }
+        if ((colActiva-1)>=1) {
+            valorIzq = obtenerValorTablero(t, filaCheck, colActiva - 1);
+        } else {
+            valorIzq=-1;
+        }
 
-        valorSup = obtenerValorTablero(t, filaCheck - 1, colActiva);
-        valorIzq = obtenerValorTablero(t, filaCheck, colActiva - 1);
-        valorDer = obtenerValorTablero(t, filaCheck, colActiva + 1);
+        if ((colActiva+1)<=MAX_COLUMNAS) {
+            valorDer = obtenerValorTablero(t, filaCheck, colActiva + 1);
+        } else {
+            valorDer=-1;
+        }
+
+        valorActual = obtenerValorTablero(t, filaCheck, colActiva);
 
         if (!hayFusion && valorActual == valorIzq && valorActual == valorDer && valorActual == valorSup) {
             hayFusion = true;
@@ -237,9 +312,6 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
        *  Si (!hayFusion y (izq (no der) y arriba == valor), col/fila ==> aplicar fusión {
        */
     {
-        valorSup = obtenerValorTablero(t, filaCheck - 1, colActiva);
-        valorIzq = obtenerValorTablero(t, filaCheck, colActiva - 1);
-
         if (!hayFusion && valorActual == valorIzq && valorActual == valorSup) {
             hayFusion = true;
             fusionDobleIzq(t, colActiva, filaCheck);
@@ -255,9 +327,6 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
     //fusionDobleDer(t, col/fila)
 
     {
-        valorSup = obtenerValorTablero(t, filaCheck - 1, colActiva);
-        valorDer = obtenerValorTablero(t, filaCheck, colActiva + 1);
-
         if (!hayFusion && valorActual == valorDer && valorActual == valorSup) {
             hayFusion = true;
             fusionDobleDer(t, colActiva, filaCheck);
@@ -271,8 +340,6 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
     //Si (!hayFusion y (der == valor), col/fila ==> aplicar fusión {
     //fusionDerSimple(t, col/fila)
     {
-        valorDer = obtenerValorTablero(t, filaCheck, colActiva + 1);
-
         if (!hayFusion && valorActual == valorDer) {
             hayFusion = true;
             fusionSimpleDer(t, colActiva, filaCheck);
@@ -286,8 +353,7 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
     //Si (!hayFusion y (izq == valor), col/fila ==> aplicar fusión {
     //fusionSimpleIzq(t, col/fila)
     {
-        valorIzq = obtenerValorTablero(t, filaCheck, colActiva -1);
-
+         cout<<valorIzq<<";"<<valorActual;
         if (!hayFusion && valorActual == valorIzq) {
             hayFusion = true;
             fusionSimpleIzq(t, colActiva, filaCheck);
@@ -306,6 +372,11 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
         if (!hayFusion && valorActual == valorSup) {
             hayFusion = true;
             fusionSimpleSup(t, colActiva, filaCheck);
+        }
+
+        if (hayFusion ){
+            cout<<"Iza:"<<valorIzq<<";Sup:"<<valorSup<<";Der:"<<valorDer<<"\n";
+            cout<<"      Act:"<<valorActual<<"\n";
         }
 
     }
@@ -348,12 +419,37 @@ void ponerValorTablero(tablero &t, int col, int valor) {
     t[col].ocupadas = t[col].ocupadas + 1;
 }
 
+void reemplazarValorTablero (tablero &t, int columna, int fila, int valor){
+
+    pasarColumnaBase0(columna);
+    pasarFilasBase0(fila);
+
+    t[columna].fila[fila] = valor;
+    //No actauzalizamos ocupadas ya que este funcion SOLO se encargar de reemplazar un numero por otro
+
+}
+
 void dumpColumna(tablero &t, int nfilas, int col) {
     cout << "\nVolcado-columna: " << col << "\n filas: ";
     for (int fila = 0; fila < nfilas; fila++) {
         cout << t[col].fila[fila] << "; ";
     }
     cout << "Ocupadas:" << t[col].ocupadas << "\n";
+}
+
+void dumpTablero(tablero &t, int nfilas, int ncols)  {
+    cout << "\nVolcado-tablero:\n";
+    for (int fila = 0; fila < nfilas; fila++) {
+        cout<<fila+1<<"- ";
+        for (int coln = 0; coln < ncols; coln++) {
+            cout<<t[coln].fila[fila]<<"\t";
+        }
+        cout<<"\n";
+    }
+    cout<<"---------------------------------\n   ";
+    for (int coln = 0; coln < ncols; coln++) {
+        cout<<t[coln].ocupadas<<"\t";
+    }
 }
 
 int obtenerValorTablero(tablero t, int fila, int col) {

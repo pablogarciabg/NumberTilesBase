@@ -5,6 +5,7 @@
 #ifndef UNI_PROJECTS_TABLERO_H
 #define UNI_PROJECTS_TABLERO_H
 #include "casilla.h"
+//#include "juego.h"
 
 #include <iostream>
 using namespace std;
@@ -52,6 +53,11 @@ void vaciarTablero (tablero &t);
 //COMPLEJIDAD= O(n²)
 //POST={Inicia el tablero}
 void iniciarTableroAleatorio (tablero &t, int fila, int ncolumnas, int filasIniciales);
+
+//PRE={1<= fila <= juego.config.totalFilas, 1<= fila <= juego.config.totalFilas}
+//
+//POST={SOLO se uasará cuando no tengamos que insertar un numero en funcion de las ocupadas, es decir, que reemplazamos un numero por otro}
+void reemplazarValorTablero (tablero &t, int columna, int fila, int valor);
 
 //PRE={fila >= 0, col >=0, valor=2^x (x>=1)}
 //COMPLEJIDAD=O(1)
@@ -102,6 +108,10 @@ int obtenerNumColumnas(tablero t);
 int obtenerValorOcupadas(tablero t, int col);
 
 void dumpColumna(tablero &t, int nfilas,int col);
+
+void dumpTablero(tablero &t, int nfilas, int ncols) ;
+
+void aproximarValorPotencia (tablero &t, int fila, int colunma);
 
 bool aplicarNuevoValorFila(tablero &t,int colActiva);
 

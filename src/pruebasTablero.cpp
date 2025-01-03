@@ -479,6 +479,63 @@ void pruebasObtenerNumColumnas() {
     }
 }
 
+void pruebaFusionCaso1() {
+    cout << "\n-- inicio prueba fusion-casillas caso-1\n";
+
+    tablero t;
+    vaciarTablero(t);
+
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 12   8   32
+     * 2    4   16
+     * 4    4   4
+     * Insercion en fila 3, columna 2
+     *
+     */
+
+    //
+    columna = 1;
+    ponerValorTablero(t, columna, 12);
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 4);
+
+    //Actuar
+    int colActuar = 2;
+    int resultadoEsperado = 16;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 2) {
+        cout << "Error al obtener ocupadas en columna 2, caso 1\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar-1) != 2) {
+        cout << "Error al obtener ocupadas en columna 1, caso 1\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar+1) != 2) {
+        cout << "Error al obtener ocupadas en columna 3, caso 1\n";
+    }
+
+    if (obtenerValorTablero(t, 2, colActuar) != resultadoEsperado) {
+        cout << "Error en la fusion de casillas, caso 1\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-1\n";
+}
+
+
+
 void pruebaFusionCaso2() {
     cout << "\n-- inicio prueba fusion-casillas caso-2\n";
 
@@ -521,11 +578,167 @@ void pruebaFusionCaso2() {
         cout << "Error al obtener ocupadas en columna 1, caso 2\n";
     }
 
-    if (obtenerValorTablero(t, 2, colActuar) != resultadoEsperado) {
+    if (obtenerValorTablero(t, 2, colActuar) != 12) {
         cout << "Error en la fusion de casillas, caso 2\n";
     }
 
     cout << "-- fin prueba fusion-casillas caso-2\n";
+}
+
+void pruebaFusionCaso3() {
+    cout << "\n-- inicio prueba fusion-casillas caso-3\n";
+
+    tablero t;
+    vaciarTablero(t);
+
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 16   8   32
+     * 2    4   16
+     * 16   4   4
+     * Insercion en fila 3, columna 2
+     *
+     */
+
+    //
+    columna = 1;
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 16);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 4);
+
+    //Actuar
+    int colActuar = 2;
+    int resultadoEsperado = 16;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 2) {
+        cout << "Error al obtener ocupadas en columna 2, caso 3\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar+1) != 2) {
+        cout << "Error al obtener ocupadas en columna 3, caso 1\n";
+    }
+
+    if (obtenerValorTablero(t, 2, colActuar) != 12) {
+        cout << "Error en la fusion de casillas, caso 3\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-3\n";
+}
+
+void pruebaFusionCaso4() {
+    cout << "\n-- inicio prueba fusion-casillas caso-4\n";
+
+    tablero t;
+    vaciarTablero(t);
+
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 16   8   32
+     * 2    32  16
+     * 16   4   4
+     * Insercion en fila 3, columna 2
+     *
+     */
+
+    //
+    columna = 1;
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 16);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 4);
+
+    //Actuar
+    int colActuar = 2;
+    int resultadoEsperado = 8;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 3) {
+        cout << "Error al obtener ocupadas en columna 2, caso 4\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar+1) != 2) {
+        cout << "Error al obtener ocupadas en columna 3, caso 4\n";
+    }
+
+    if (obtenerValorTablero(t, 3, colActuar) != resultadoEsperado) {
+        cout << "Error en la fusion de casillas, caso 4\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-4\n";
+}
+
+void pruebaFusionCaso5() {
+    cout << "\n-- inicio prueba fusion-casillas caso-5\n";
+
+    tablero t;
+    vaciarTablero(t);
+
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 16   8   32
+     * 2    32  16
+     * 4    4   64
+     * Insercion en fila 3, columna 2
+     *
+     */
+
+    //
+    columna = 1;
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 16);
+    ponerValorTablero(t, columna, 64);
+
+    //Actuar
+    int colActuar = 2;
+    int resultadoEsperado = 8;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 3) {
+        cout << "Error al obtener ocupadas en columna 2, caso 5\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar-1) != 2) {
+        cout << "Error al obtener ocupadas en columna 1, caso 5\n";
+    }
+
+    if (obtenerValorTablero(t, 3, colActuar) != resultadoEsperado) {
+        cout << "Error en la fusion de casillas, caso 5\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-5\n";
 }
 
 void pruebaFusionCaso6() {
@@ -579,8 +792,91 @@ void pruebaFusionCaso6() {
 }
 
 void pruebaFusionCasillas() { //Tablero 6x5
+    pruebaFusionCaso1();
     pruebaFusionCaso2();
+    pruebaFusionCaso3();
+    pruebaFusionCaso4();
+    pruebaFusionCaso5();
     pruebaFusionCaso6();
+
+}
+
+void pruebaAproximarValorPotencia(){
+
+    cout<<"-- incio de las pruebas aproximar valor potencia\n";
+
+    tablero t;
+    vaciarTablero(t);
+    /*
+     * CREAMOS ESCNARIO
+     *
+     * 5    26     65
+     * 156  200    1
+     * 4
+     *
+     */
+
+    int numeroAproximar, resultadoEsperado;
+
+    int columna;
+    //Colocamos los valores en el tablero
+
+    columna = 1;
+    ponerValorTablero(t, columna, 5);
+    ponerValorTablero(t, columna, 156);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 26);
+    ponerValorTablero(t, columna, 200);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 65);
+    ponerValorTablero(t, columna, 1);
+
+    //Realizamos las comprobaciones
+
+    //Columna 1
+    aproximarValorPotencia(t, 1, 1);
+    if (obtenerValorTablero(t, 1, 1) !=4 ){
+        cout<<"Error al comprobar la fila 1/columna 1\n";
+    }
+
+    aproximarValorPotencia(t, 2, 1);
+    if (obtenerValorTablero(t, 2, 1) != 128 ){
+        cout<<"Error al comprobar la fila 2/columna 1\n";
+    }
+
+    aproximarValorPotencia(t, 3, 1);
+    if (obtenerValorTablero(t, 3, 1) != 4 ){
+        cout<<"Error al comprobar la fila 3/columna 1\n";
+    }
+
+    //Columna 2
+
+    aproximarValorPotencia(t, 1, 2);
+    if (obtenerValorTablero(t, 1, 2) != 32 ){
+        cout<<"\nError al comprobar la fila 1/columna 2\n";
+    }
+
+    aproximarValorPotencia(t, 2, 2);
+    if (obtenerValorTablero(t, 2, 2) != 256 ){
+        cout<<"Error al comprobar la fila 2/columna 2\n";
+    }
+
+    //Columna 3
+
+    aproximarValorPotencia(t, 1, 3);
+    if (obtenerValorTablero(t, 1, 3) != 64 ){
+        cout<<"\nError al comprobar la fila 1/columna 3\n";
+    }
+
+    aproximarValorPotencia(t, 2, 3);
+    if (obtenerValorTablero(t, 2, 3) != 2 ){
+        cout<<"Error al comprobar la fila 2/columna 3\n";
+    }
+
+    cout<<"-- fin de las pruebas aproximar valor potencia\n";
 
 }
 
@@ -673,7 +969,11 @@ void pruebasGeneralesTablero() {
 
     cout << "\n";
 
-    cout << "----------FIN DE LAS PRRUEBAS GENERALES TABLERO----------\n";
+    cout << "\nINCIO DE LAS PRUEBAS APROXIMAR VALOR POTENCIA\n";
+    pruebaAproximarValorPotencia();
+    cout << "FIN DE LAS PRUEBAS APROXIMAR VALOR POTENCIA\n";
+
+    cout << "\n----------FIN DE LAS PRRUEBAS GENERALES TABLERO----------\n";
 }
 
 
