@@ -132,9 +132,7 @@ void play(Juego &juego) {
                     if (aplicarNuevoValorFila(juego.tab,columna)) {
                         repintarTablero(juego);
                         cout<<"Se ha repintado el tablero";
-//                        int filaFusion = juego.tab[columna-1].ocupadas-1;
-//                        entornoEliminarNumero(filaFusion,columna-1); //Eliminar la última casilla
-//                        entornoPonerNumero(filaFusion-1,columna-1, obtenerValorTablero(juego.tab,filaFusion-1,columna-1)); //poner valor fusionado
+
                     }
 
 //                    dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);

@@ -52,6 +52,7 @@ void vaciarTablero(tablero &t) {
     }
 }
 
+//Siempre quita la última fila ocupada
 void quitarValorTablero(tablero &t, int col) {
 
     pasarColumnaBase0(col);
@@ -60,6 +61,32 @@ void quitarValorTablero(tablero &t, int col) {
     t[col].fila[t[col].ocupadas - 1] = 0;
     t[col].ocupadas--;
 
+}
+
+//Elimina una casilla, subiendo el resto hacia arriba
+void eliminarValorTablero(tablero &t, int fila, int col) {
+
+    //Comprobar si la fila eliminada === última fila.
+      //a) Si es última fila, llamar a quitarValorTablero
+      //b) Si no es la última, poner a 0 esta fila, y subir el resto hacia arriba.
+      //  Recorrer desde fila actual hacia abajo, y subir una fila hacia arriba
+
+    if (fila== obtenerValorOcupadas(t,col)) {
+        //Estamos en la ultima
+        quitarValorTablero(t,col);
+    } else {
+        //No estoy en la ultima, y tengo que desplazar el hueco hasta el final
+        int aux;
+        reemplazarValorTablero(t,fila, col,0);
+
+        for (int fil=fila;fil<=MAX_FILAS;fil++) {
+            aux = obtenerValorTablero(t,fila+1,col);
+            reemplazarValorTablero(t,col,fila,aux);
+        }
+
+        //Cambio en base-0
+        t[col-1].ocupadas--;
+    }
 }
 
 
@@ -110,10 +137,10 @@ void fusionTriple(tablero &t, int columna, int fila) {
     resultadoFusion =  valorSuperior + valorDer + valorIzq + valorActual; //2^x < resultdoFusion < 2^x+1
 
     //Eliminar las casillas fusionadas
-    quitarValorTablero(t, columna - 1);
-    quitarValorTablero(t, columna + 1);
-    quitarValorTablero(t, columna);
-    quitarValorTablero(t, columna);
+    eliminarValorTablero(t, fila, columna - 1);
+    eliminarValorTablero(t, fila, columna + 1);
+    eliminarValorTablero(t, fila, columna);
+    eliminarValorTablero(t, fila, columna);
     ponerValorTablero(t, columna, resultadoFusion);
     aproximarValorPotencia(t, fila, columna);
 
@@ -131,10 +158,10 @@ void fusionDobleIzq(tablero &t, int columna, int fila) {
     resultadoFusion = valorSuperior + valorIzq + valorActual;
 
     //Eliminar las casillas fusionadas
-    quitarValorTablero(t, columna - 1);
-    quitarValorTablero(t, columna);
-    quitarValorTablero(t, columna);
-    ponerValorTablero(t, columna, resultadoFusion);
+    eliminarValorTablero(t, fila, columna - 1); //izq
+    quitarValorTablero(t, columna); //actual
+    quitarValorTablero(t, columna); //superior
+    ponerValorTablero(t, columna, resultadoFusion);  //poner la fusion
     aproximarValorPotencia(t, fila, columna);
 
     cout<<"fusionDobleIzq aplicada\n";
@@ -169,7 +196,7 @@ void fusionSimpleDer(tablero &t, int columna, int fila) {
     resultadoFusion = valorActual+ valorDer;
 
     //Eliminar las casillas fusionadas
-    quitarValorTablero(t, columna + 1);
+    eliminarValorTablero(t, fila, columna + 1); //der
     quitarValorTablero(t, columna);
     ponerValorTablero(t, columna, resultadoFusion);
     aproximarValorPotencia(t, fila, columna);
@@ -187,8 +214,8 @@ void fusionSimpleIzq(tablero &t, int columna, int fila) {
     resultadoFusion = valorActual + valorIzq;
 
     //Eliminar las casillas fusionadas
-    quitarValorTablero(t, columna - 1);
-    quitarValorTablero(t, columna);
+    eliminarValorTablero(t,fila, columna - 1); //izq
+    quitarValorTablero(t, columna); //actual
     ponerValorTablero(t, columna, resultadoFusion);
     aproximarValorPotencia(t, fila, columna);
 
@@ -262,7 +289,7 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
 //    colActiva++;
 
 
-    int filaCheck, valorActual=-1, valorSup=-1, valorIzq=-1, valorDer=-1;
+    int filaCheck, valorActual = -1, valorSup= - 1, valorIzq= - 1, valorDer= - 1;
     bool hayFusion = false;
 
 
@@ -277,7 +304,7 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
     /* Caso 1:      4
         *         4 X 4
         *  Resultado sería 16
-        *  Si izq y der y arriba == valor col/fila ==> aplicar fusión
+        *  Si izq y der y arriba == valor col/fila ==> aplicar fusión1
         */
     {
         if ((filaCheck-1)>=1) {
