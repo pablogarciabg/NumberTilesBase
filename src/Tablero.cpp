@@ -141,8 +141,8 @@ void fusionTriple(tablero &t, int columna, int fila) {
     eliminarValorTablero(t, fila, columna + 1);
     eliminarValorTablero(t, fila, columna);
     eliminarValorTablero(t, fila, columna);
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);
-    aproximarValorPotencia(t, fila, columna);
 
     cout<<"fusionTripe aplicada\n";
 }
@@ -161,8 +161,8 @@ void fusionDobleIzq(tablero &t, int columna, int fila) {
     eliminarValorTablero(t, fila, columna - 1); //izq
     quitarValorTablero(t, columna); //actual
     quitarValorTablero(t, columna); //superior
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);  //poner la fusion
-    aproximarValorPotencia(t, fila, columna);
 
     cout<<"fusionDobleIzq aplicada\n";
 }
@@ -180,8 +180,9 @@ void fusionDobleDer(tablero &t, int columna, int fila) {
     quitarValorTablero(t, columna + 1);
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);
-    aproximarValorPotencia(t, fila, columna);
+
 
     cout<<"fusionDobleDer aplicada\n";
 }
@@ -198,8 +199,9 @@ void fusionSimpleDer(tablero &t, int columna, int fila) {
     //Eliminar las casillas fusionadas
     eliminarValorTablero(t, fila, columna + 1); //der
     quitarValorTablero(t, columna);
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);
-    aproximarValorPotencia(t, fila, columna);
+
 
     cout<<"fusionSimpleDer aplicada\n";
 }
@@ -216,8 +218,9 @@ void fusionSimpleIzq(tablero &t, int columna, int fila) {
     //Eliminar las casillas fusionadas
     eliminarValorTablero(t,fila, columna - 1); //izq
     quitarValorTablero(t, columna); //actual
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);
-    aproximarValorPotencia(t, fila, columna);
+
 
     cout<<"fusionSimpleIzq aplicada\n";
 }
@@ -234,13 +237,14 @@ void fusionSimpleSup(tablero &t, int columna, int fila) {
     //Eliminar las casillas fusionadas
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     ponerValorTablero(t, columna, resultadoFusion);
-    aproximarValorPotencia(t, fila, columna);
+
 
     cout<<"fusionSimpleSup aplicada\n";
 }
 
-void aproximarValorPotencia (tablero &t, int fila, int colunma){ //Usamos fila, ya que dentro llamamamos a "obtenerValorTablero"
+int aproximarValorPotencia (tablero &t, int valor){ //Usamos fila, ya que dentro llamamamos a "obtenerValorTablero"
 
     int MAX_EXPONENTE = 8;
     int expAnterior;
@@ -248,41 +252,52 @@ void aproximarValorPotencia (tablero &t, int fila, int colunma){ //Usamos fila, 
     int expPosterior;
     expPosterior = expAnterior + 1;
     int nuevoValorTablero = 0;
-    int numTablero = obtenerValorTablero(t, fila, colunma);
     bool reemplazado = false;
     int potenciaAnterior = pow (2, expAnterior);
     int potenciaSuperior = pow (2, expPosterior);
 
 
     while (!reemplazado && potenciaSuperior <= 257){
-        if ((potenciaAnterior < numTablero) && (potenciaSuperior > numTablero)){
-            if ((numTablero - potenciaAnterior) < (potenciaSuperior - numTablero)){
-                nuevoValorTablero = pow(2, expAnterior);
-                reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
-                reemplazado = true;
-            }
-            if ((numTablero - potenciaAnterior) > (potenciaSuperior - numTablero)){
-                nuevoValorTablero = pow(2, expPosterior);
-                reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
-                reemplazado = true;
-            }
-
-
+        if ((potenciaAnterior < valor) && (potenciaSuperior > valor)){
+            valor = pow (2, expPosterior);
+            reemplazado = true;
         }
 
-        if (numTablero == pow(2, 0)){
-            nuevoValorTablero = 2;
-            reemplazarValorTablero(t, colunma, fila, nuevoValorTablero);
+        if (valor == pow(2, 0)){
+            valor = 2;
+            reemplazado = true;
         }
+
         expAnterior++;
         expPosterior = expAnterior + 1;
         potenciaAnterior = pow (2, expAnterior);
         potenciaSuperior = pow (2, expPosterior);
 
     }
+
+    return valor;
 }
 
+void fusionDerIzq (tablero &t, int fila, int columna){
 
+    int valorActual, valorDer, valorIzq, resultadoFusion;
+
+    valorActual= obtenerValorTablero(t, fila, columna);
+    valorDer= obtenerValorTablero(t,fila, columna+1);
+    valorIzq= obtenerValorTablero(t, fila, columna-1);
+
+    resultadoFusion=valorActual+valorDer+valorIzq;
+
+    eliminarValorTablero(t, fila, columna-1);
+    eliminarValorTablero(t, fila, columna+1);
+    quitarValorTablero(t, columna);
+    resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
+    ponerValorTablero(t, columna, resultadoFusion);
+
+
+
+
+}
 
 bool aplicarNuevoValorFila(tablero &t, int colActiva) {
 //    pasarColumnaBase0(colActiva);
@@ -360,6 +375,25 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
         }
     }
 
+    /* Caso 7:
+    *          4 X 4
+    *  Resultado sería 12
+    */
+
+    {
+
+        if (!hayFusion && valorActual == valorDer && valorActual == valorIzq) {
+            hayFusion = true;
+            fusionDerIzq(t, filaCheck, colActiva);
+        }
+
+        if (hayFusion ){
+            cout<<"Iza:"<<valorIzq<<";Sup:"<<valorSup<<";Der:"<<valorDer<<"\n";
+            cout<<"      Act:"<<valorActual<<"\n";
+        }
+
+    }
+
     /* Caso 4:
      *           X 4
      *  Resultado sería 8
@@ -407,6 +441,8 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva) {
         }
 
     }
+
+
 
 //    bool continuar = true;
 

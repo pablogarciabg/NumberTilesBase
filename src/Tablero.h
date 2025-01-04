@@ -111,7 +111,7 @@ void dumpColumna(tablero &t, int nfilas,int col);
 
 void dumpTablero(tablero &t, int nfilas, int ncols) ;
 
-void aproximarValorPotencia (tablero &t, int fila, int colunma);
+int aproximarValorPotencia (tablero &t, int valor);
 
 bool aplicarNuevoValorFila(tablero &t,int colActiva);
 

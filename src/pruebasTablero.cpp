@@ -791,6 +791,67 @@ void pruebaFusionCaso6() {
 
 }
 
+void pruebaFusionCaso7() {
+
+    cout << "\n-- inicio prueba fusion-casillas caso-7\n";
+
+    tablero t;
+    vaciarTablero(t);
+    int columna;
+    //CREAMOS EL ESCENARIO
+    /*
+     * 4    2   8
+     * 64   32  64
+     * 4    4   4
+     * Insercion en columna 2 y fila 3
+     *
+     * ESCENARIO RESULTANTE
+     * 4    2   8
+     * 64   32  64
+     *      12
+     */
+
+    columna = 1;
+    ponerValorTablero(t, columna, 4);
+    ponerValorTablero(t, columna, 64);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 2;
+    ponerValorTablero(t, columna, 2);
+    ponerValorTablero(t, columna, 32);
+    ponerValorTablero(t, columna, 4);
+
+    columna = 3;
+    ponerValorTablero(t, columna, 8);
+    ponerValorTablero(t, columna, 64);
+    ponerValorTablero(t, columna, 4);
+
+
+    //Actuar
+
+    int colActuar = 2;
+    int resultadoEsperado = 16;
+    aplicarNuevoValorFila(t, colActuar);
+
+    //Verificar
+    if (obtenerValorOcupadas(t,colActuar) != 3) {
+        cout << "Error al obtener ocupadas en columna 2, caso 7\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar-1) != 2) {
+        cout << "Error al obtener ocupadas en columna 1, caso 7\n";
+    }
+    if (obtenerValorOcupadas(t,colActuar+1) != 2) {
+        cout << "Error al obtener ocupadas en columna 3, caso 7\n";
+    }
+
+    if (obtenerValorTablero(t, 3, colActuar) != resultadoEsperado) {
+        cout << "Error en la fusion de casillas, caso 7\n";
+    }
+
+    cout << "-- fin prueba fusion-casillas caso-7\n";
+
+}
+
 void pruebaFusionCasillas() { //Tablero 6x5
     pruebaFusionCaso1();
     pruebaFusionCaso2();
@@ -798,83 +859,58 @@ void pruebaFusionCasillas() { //Tablero 6x5
     pruebaFusionCaso4();
     pruebaFusionCaso5();
     pruebaFusionCaso6();
+    pruebaFusionCaso7();
 
 }
 
 void pruebaAproximarValorPotencia(){
 
     cout<<"-- incio de las pruebas aproximar valor potencia\n";
-
     tablero t;
-    vaciarTablero(t);
-    /*
-     * CREAMOS ESCNARIO
-     *
-     * 5    26     65
-     * 156  200    1
-     * 4
-     *
-     */
+    int num, numAproximado, resultadoEsperado;
 
-    int numeroAproximar, resultadoEsperado;
-
-    int columna;
-    //Colocamos los valores en el tablero
-
-    columna = 1;
-    ponerValorTablero(t, columna, 5);
-    ponerValorTablero(t, columna, 156);
-    ponerValorTablero(t, columna, 4);
-
-    columna = 2;
-    ponerValorTablero(t, columna, 26);
-    ponerValorTablero(t, columna, 200);
-
-    columna = 3;
-    ponerValorTablero(t, columna, 65);
-    ponerValorTablero(t, columna, 1);
-
-    //Realizamos las comprobaciones
-
-    //Columna 1
-    aproximarValorPotencia(t, 1, 1);
-    if (obtenerValorTablero(t, 1, 1) !=4 ){
-        cout<<"Error al comprobar la fila 1/columna 1\n";
+    num = 5;
+    resultadoEsperado = 8;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    aproximarValorPotencia(t, 2, 1);
-    if (obtenerValorTablero(t, 2, 1) != 128 ){
-        cout<<"Error al comprobar la fila 2/columna 1\n";
+    num = 14;
+    resultadoEsperado = 16;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    aproximarValorPotencia(t, 3, 1);
-    if (obtenerValorTablero(t, 3, 1) != 4 ){
-        cout<<"Error al comprobar la fila 3/columna 1\n";
+    num = 25;
+    resultadoEsperado = 32;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    //Columna 2
-
-    aproximarValorPotencia(t, 1, 2);
-    if (obtenerValorTablero(t, 1, 2) != 32 ){
-        cout<<"\nError al comprobar la fila 1/columna 2\n";
+    num = 55;
+    resultadoEsperado = 64;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    aproximarValorPotencia(t, 2, 2);
-    if (obtenerValorTablero(t, 2, 2) != 256 ){
-        cout<<"Error al comprobar la fila 2/columna 2\n";
+    num = 85;
+    resultadoEsperado = 128;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    //Columna 3
-
-    aproximarValorPotencia(t, 1, 3);
-    if (obtenerValorTablero(t, 1, 3) != 64 ){
-        cout<<"\nError al comprobar la fila 1/columna 3\n";
+    num = 200;
+    resultadoEsperado = 256;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
     }
 
-    aproximarValorPotencia(t, 2, 3);
-    if (obtenerValorTablero(t, 2, 3) != 2 ){
-        cout<<"Error al comprobar la fila 2/columna 3\n";
-    }
 
     cout<<"-- fin de las pruebas aproximar valor potencia\n";
 
