@@ -25,6 +25,12 @@ struct Juego {
 
 //PRE={}
 //COMPLEJIDAD=O(n^2)
+//POST={Se encarga de pintar el tablero usando el entorno, es modulo se usa cada vez que se hace una fusion}
+void repintarTablero (Juego &juego);
+
+
+//PRE={}
+//COMPLEJIDAD=O(n^2)
 //POST={Se encarga de arrancar el entorno, leer el fichero de configuracion y pintar el tablero}
 void inicializarJuego(Juego &juego);
 
