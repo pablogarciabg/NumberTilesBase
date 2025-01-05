@@ -24,13 +24,13 @@ struct Juego {
 };
 
 //PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//COMPLEJIDAD=O(n^2)
+//POST={Se encarga de arrancar el entorno, leer el fichero de configuracion y pintar el tablero}
 void inicializarJuego(Juego &juego);
 
 //PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//COMPLEJIDAD=O(n)
+//POST={Se encarga de llevar a cabo todas las operaciones, del juego, dependiendo de le tecla puslsada}
 void play(Juego &juego);
 
 #endif //NUMBERTILESBASE_JUEGO_H

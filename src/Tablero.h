@@ -112,8 +112,8 @@ int obtenerValorOcupadas(tablero t, int col);
 
 
 //PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//COMPLEJIDAD=O(n)
+//POST={Se encarga de mostrar el valor que hay nen cada fila de ocupadas}
 void dumpColumna(tablero &t, int nfilas,int col);
 
 
@@ -137,43 +137,43 @@ bool aplicarNuevoValorFila(tablero &t,int colActiva, int &puntuacion);
 
 //PRE={columna >= 1, fila >= 1}
 //COMPLEJIDAD=O(1)
-//POST={Se encarga de realizar la fusion de casillas del caso 1}
+//POST={Se encarga de realizar la fusion de casillas del caso 1(especificado en aplicarNuevoValorFila)}
 void fusionTriple(tablero &t, int columna, int fila, int &puntuacion);
 
 
 //PRE={columna >= 1, fila >= 1}
 //COMPLEJIDAD=O(1)
-//POST={}
+//POST={Se encarga de realizar la fusion de casillas del caso 2(especificado en aplicarNuevoValorFila)}
 void fusionDobleIzq(tablero &t, int columna, int fila, int &puntuacion);
 
 
-//PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de realizar la fusion de casillas del caso 3 (especificado en aplicarNuevoValorFila)}
 void fusionDobleDer(tablero &t, int columna, int fila, int &puntuacion);
 
 
-//PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de realizar la fusion de casillas del caso 4 (especificado en aplicarNuevoValorFila)
 void fusionSimpleDer(tablero &t, int columna, int fila, int &puntuacion);
 
 
-//PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST= {Se encarga de realizar la fusion de casillas del caso 5 (especificado en aplicarNuevoValorFila)
 void fusionSimpleIzq(tablero &t, int columna, int fila, int &puntuacion);
 
 
-//PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de realizar la fusion de casillas del caso 6 (especificado en aplicarNuevoValorFila)
 void fusionSimpleSup(tablero &t, int columna, int fila, int &puntuacion);
 
 
-//PRE={}
-//COMPLEJIDAD=O()
-//POST=
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de realizar la fusion de casillas del caso 7 (especificado en aplicarNuevoValorFila)
 void fusionDerIzq (tablero &t, int fila, int columna, int &puntuacion);
 
 
