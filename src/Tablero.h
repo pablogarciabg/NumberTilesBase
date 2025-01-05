@@ -52,7 +52,7 @@ void vaciarTablero (tablero &t);
 //PRE={fila >= 0, ncolumnas >=0, filaInciales >=0}
 //COMPLEJIDAD= O(n²)
 //POST={Inicia el tablero}
-void iniciarTableroAleatorio (tablero &t, int fila, int ncolumnas, int filasIniciales);
+void iniciarTableroAleatorio (tablero &t, int fila, int ncolumnas, int filasIniciales, int comoIniciar);
 
 //PRE={1<= fila <= juego.config.totalFilas, 1<= fila <= juego.config.totalFilas}
 //
@@ -105,15 +105,78 @@ int obtenerNumFilas (tablero t);
 //POST={Devueve el numero de columnas que tiene el tablero}
 int obtenerNumColumnas(tablero t);
 
+//PRE={col>=1}
+//COMPLEJIDAD=O(1)
+//POST={Devuelve el numero de ocupadas de la columna determinada}
 int obtenerValorOcupadas(tablero t, int col);
 
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
 void dumpColumna(tablero &t, int nfilas,int col);
 
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST={Hace una repersentacion del tablero, nos sirve, para ver como esta alamacenado el tablero en memoria}
 void dumpTablero(tablero &t, int nfilas, int ncols) ;
 
+
+//PRE={valor > 0}
+//COMPLEJIDAD=O(n)
+//POST={Se encarga de aproximar un valor a su potencia de dos correspondinte por arriba (2^x)}
 int aproximarValorPotencia (tablero &t, int valor);
 
-bool aplicarNuevoValorFila(tablero &t,int colActiva);
+
+//PRE={colActiva>=1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de verificar si es necesario realizar una fusion}
+bool aplicarNuevoValorFila(tablero &t,int colActiva, int &puntuacion);
+
+
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={Se encarga de realizar la fusion de casillas del caso 1}
+void fusionTriple(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(1)
+//POST={}
+void fusionDobleIzq(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
+void fusionDobleDer(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
+void fusionSimpleDer(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
+void fusionSimpleIzq(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
+void fusionSimpleSup(tablero &t, int columna, int fila, int &puntuacion);
+
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
+void fusionDerIzq (tablero &t, int fila, int columna, int &puntuacion);
+
+
 
 void fusionFilaAdyacentes (tablero &t, int colActiva, int valorActual, int valorPrevio);
 

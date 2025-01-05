@@ -33,6 +33,7 @@ void ejemplo() {
 	string msg;
 	msg = " ";
 	bool salir = false;
+    int cont = 0; //Sirve para la mpliacion deshechar
 
 	TipoTecla tecla;
 
@@ -82,7 +83,7 @@ void ejemplo() {
 		fila = 0;
 		columna = 0; // columna de comienzo del valor en el lanzador
 
-		valor = pow (2,(1 + rand() % 8 ) );
+		valor = pow (2,(1 + rand() % comoIniciar ) );
 		entornoPonerNumeroLanzador(valor, columna);
 
 		while (!salir) {
@@ -121,7 +122,15 @@ void ejemplo() {
 				break;
 
 			case TF1:
+
+                cout<<"Se ha pulsado la tecla F1";
+                cont++;
+                if (cont <= 3){
+                    valor = pow (2,(1 + rand() % comoIniciar ) );
+                    entornoPonerNumeroLanzador(valor, columna);
+                }
 				break;
+
 			case TF2:
 				break;
 
@@ -141,11 +150,7 @@ void ejemplo() {
 	entornoTerminar();
 }
 
-//int playJuego() {
-//
-//
-//    inicializarJuego(juego);
-//}
+
 
 int main() {
 

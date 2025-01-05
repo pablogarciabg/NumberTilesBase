@@ -13,6 +13,7 @@ struct Config {
     int totalColumnas;
     int totalFilas;
     int filasIniciales;
+    int comoIniciar;
 };
 
 struct Juego {
@@ -22,8 +23,14 @@ struct Juego {
 
 };
 
-
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
 void inicializarJuego(Juego &juego);
+
+//PRE={}
+//COMPLEJIDAD=O()
+//POST=
 void play(Juego &juego);
 
 #endif //NUMBERTILESBASE_JUEGO_H

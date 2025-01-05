@@ -74,7 +74,7 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
         } else {
 
             //El tablero se inicia con datos aleatorios
-            iniciarTableroAleatorio(juego.tab, nfilas, ncolumnas, filasIniciales);
+            iniciarTableroAleatorio(juego.tab, nfilas, ncolumnas, filasIniciales, comoIniciar);
 
             for (int col = 0; col < ncolumnas; col++) { //col=columnas
                 for (int fila = 0; fila < filasIniciales; fila++) { //fila=filas
@@ -88,6 +88,7 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
     juego.config.filasIniciales = filasIniciales;
     juego.config.totalColumnas = ncolumnas;
     juego.config.totalFilas = nfilas;
+    juego.config.comoIniciar = comoIniciar;
 }
 
 
@@ -95,15 +96,17 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
 void play(Juego &juego) {
 
     const int BASE_INICIO = 1;
-    int columna, fila;
+    int columna, fila, puntuacion;
     columna = BASE_INICIO;
     fila= obtenerValorOcupadas(juego.tab, columna);
+
+    puntuacion = 0;
 
     string msg;
     msg = " ";
     bool salir = false;
 
-    int valorLanzador = pow(2, 1 + rand() % 8);
+    int valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
 
     TipoTecla tecla;
 
@@ -121,7 +124,7 @@ void play(Juego &juego) {
                 int cont;
                 cont = 0;
 
-                if (obtenerValorOcupadas(juego.tab, columna) < juego.config.totalFilas) {
+                if (juego.tab[columna-1].ocupadas < juego.config.totalFilas) {
                     dumpTablero(juego.tab,juego.config.totalFilas,juego.config.totalColumnas);
 
                     cout<<"colActiva:"<<columna<<" valorLanzador"<<valorLanzador<<"\n";
@@ -129,8 +132,9 @@ void play(Juego &juego) {
 
                     entornoPonerNumero(obtenerValorOcupadas(juego.tab,columna)-1, columna - 1, valorLanzador);
 
-                    if (aplicarNuevoValorFila(juego.tab,columna)) {
+                    if (aplicarNuevoValorFila(juego.tab,columna, puntuacion)) {
                         repintarTablero(juego);
+                        entornoPonerPuntuacion(puntuacion);
                         cout<<"Se ha repintado el tablero";
 
                     }
@@ -143,10 +147,11 @@ void play(Juego &juego) {
                     //dumpColumna(juego.tab,juego.config.totalFilas-1,columna-1);
 
                     //En este punto se ha finaliado el introducir valor en columna
-                    valorLanzador = pow(2, 1 + rand() % 8);
+                    valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
 //                    entornoQuitarNumeroLanzador(columna - 1);
 
                     entornoPonerNumeroLanzador(valorLanzador,columna-1);
+
                 }
 
 

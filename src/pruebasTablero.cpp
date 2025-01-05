@@ -92,7 +92,8 @@ void pruebaIniciarTableroAleatorio() {
     int fila;
     int columna;
     int filasInciales = 3;
-    iniciarTableroAleatorio(t, fila, columna, filasInciales);
+    int comoIniciar = 12;
+    iniciarTableroAleatorio(t, fila, columna, filasInciales, comoIniciar);
 
     bool correcto = true;
     int col = 0;
@@ -275,10 +276,11 @@ void pruebaEstaVaciaCasillaTablero01() {
     int ncolumna;
     tablero t;
     int filasIniciales;
+    int comoIniciar = 12;
 
     filasIniciales = 3;
 
-    iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales);
+    iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales, comoIniciar);
 
     int fila = 1;
     int columna = 1;
@@ -296,10 +298,11 @@ void pruebaEstaVaciaCasillaTablero02() {
     int filasIniciales;
     int fila;
     int columna;
+    int comoIniciar = 12;
 
     filasIniciales = 3;
 
-    iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales);
+    iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales, comoIniciar);
 
     fila = 4;
     columna = 4;
@@ -445,12 +448,13 @@ void pruebasEstaLlenoTablero() {
     int columna = 0;
     tablero t;
     int filasIniciales = 3;
+    int comoIniciar = 12;
 
     pasarFilasBase0(fila);
     pasarFilasBase0(filasIniciales);
     pasarColumnaBase0(columna);
 
-    iniciarTableroAleatorio(t, fila, columna, filasIniciales);
+    iniciarTableroAleatorio(t, fila, columna, filasIniciales, comoIniciar);
 
     if (estaLlenoTablero(t) == true) {
         cout << "Hay error al comprobar que el tablero esta lleno\n";
@@ -484,6 +488,7 @@ void pruebaFusionCaso1() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
 
     int columna;
     //CREAMOS EL ESCENARIO
@@ -514,7 +519,7 @@ void pruebaFusionCaso1() {
     //Actuar
     int colActuar = 2;
     int resultadoEsperado = 16;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 2) {
@@ -541,6 +546,7 @@ void pruebaFusionCaso2() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
 
     int columna;
     //CREAMOS EL ESCENARIO
@@ -568,7 +574,7 @@ void pruebaFusionCaso2() {
     //Actuar
     int colActuar = 2;
     int resultadoEsperado = 16;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 2) {
@@ -578,7 +584,7 @@ void pruebaFusionCaso2() {
         cout << "Error al obtener ocupadas en columna 1, caso 2\n";
     }
 
-    if (obtenerValorTablero(t, 2, colActuar) != 12) {
+    if (obtenerValorTablero(t, 2, colActuar) != resultadoEsperado) {
         cout << "Error en la fusion de casillas, caso 2\n";
     }
 
@@ -590,6 +596,7 @@ void pruebaFusionCaso3() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
 
     int columna;
     //CREAMOS EL ESCENARIO
@@ -620,7 +627,7 @@ void pruebaFusionCaso3() {
     //Actuar
     int colActuar = 2;
     int resultadoEsperado = 16;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 2) {
@@ -630,7 +637,7 @@ void pruebaFusionCaso3() {
         cout << "Error al obtener ocupadas en columna 3, caso 1\n";
     }
 
-    if (obtenerValorTablero(t, 2, colActuar) != 12) {
+    if (obtenerValorTablero(t, 2, colActuar) != resultadoEsperado) {
         cout << "Error en la fusion de casillas, caso 3\n";
     }
 
@@ -642,6 +649,7 @@ void pruebaFusionCaso4() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
 
     int columna;
     //CREAMOS EL ESCENARIO
@@ -672,7 +680,7 @@ void pruebaFusionCaso4() {
     //Actuar
     int colActuar = 2;
     int resultadoEsperado = 8;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 3) {
@@ -694,6 +702,7 @@ void pruebaFusionCaso5() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
 
     int columna;
     //CREAMOS EL ESCENARIO
@@ -724,7 +733,7 @@ void pruebaFusionCaso5() {
     //Actuar
     int colActuar = 2;
     int resultadoEsperado = 8;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 3) {
@@ -747,6 +756,7 @@ void pruebaFusionCaso6() {
 
     tablero t;
     vaciarTablero(t);
+    int comoIniciar = 12;
     int columna;
     //CREAMOS EL ESCENARIO
     /*
@@ -774,7 +784,7 @@ void pruebaFusionCaso6() {
 
     //Actuar
     ponerValorTablero(t, columna, 4);
-    aplicarNuevoValorFila(t, columna);
+    aplicarNuevoValorFila(t, columna, comoIniciar);
 
     //Verificar
     // a) total ocupadas columna=3 es 2;
@@ -798,6 +808,7 @@ void pruebaFusionCaso7() {
     tablero t;
     vaciarTablero(t);
     int columna;
+    int comoIniciar = 12;
     //CREAMOS EL ESCENARIO
     /*
      * 4    2   8
@@ -831,7 +842,7 @@ void pruebaFusionCaso7() {
 
     int colActuar = 2;
     int resultadoEsperado = 16;
-    aplicarNuevoValorFila(t, colActuar);
+    aplicarNuevoValorFila(t, colActuar, comoIniciar);
 
     //Verificar
     if (obtenerValorOcupadas(t,colActuar) != 3) {
@@ -906,6 +917,13 @@ void pruebaAproximarValorPotencia(){
 
     num = 200;
     resultadoEsperado = 256;
+    numAproximado = aproximarValorPotencia(t, num);
+    if (numAproximado != resultadoEsperado){
+        cout<< "Error al aproximar el valor "<< num;
+    }
+
+    num = 6;
+    resultadoEsperado = 8;
     numAproximado = aproximarValorPotencia(t, num);
     if (numAproximado != resultadoEsperado){
         cout<< "Error al aproximar el valor "<< num;
