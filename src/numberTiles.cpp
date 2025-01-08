@@ -11,6 +11,7 @@
 #include "Tablero.h"
 //#include "casilla.h"
 #include "pruebasTablero.h"
+#include "pruebasCasilla.h"
 
 #include <iostream>
 #include <cmath>
@@ -152,16 +153,16 @@ void ejemplo() {
 
 
 
-int main() {
-
-    Juego juego;
-
-    inicializarJuego(juego);
-    play(juego);
-
-//    pruebasGeneralesTablero();
-
-	return 0;
-}
+//int main() {
+//
+//    Juego juego;
+//    inicializarJuego(juego);
+//    play(juego);
+//
+////    pruebasGeneralesTablero();
+////    pruebasGeneralesCasilla();
+//
+//	return 0;
+//}
 
 

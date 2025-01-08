@@ -15,6 +15,12 @@ using namespace std;
 //Una casilla vacia, significa que el valor que contiene es 0
 
 /*
+ * n, es una variable de la que depende el tamaño del problema y la consideramos que n es el numero total de celdas de
+ * la estructura, como si de una matriz convencional se tratara "m[MAX_FILAS][MAX_COLUMNAS]", y partiendo de esta
+ * consideracion calcularemos la complejidad de cada modulo
+ */
+
+/*
  * IMPORTANTE: Todos los parametros de entrada y/o salida, asi como los valores de retorno estan en base 1
  * es, decir, que las filas y columnas empiezan en 1
  *
@@ -48,6 +54,12 @@ void pasarFilasBase0 (int &fila);
 //COMPLEJIDAD= O(n²)
 //POST={Vacia el tablero}
 void vaciarTablero (tablero &t);
+
+
+//PRE={col >= 1}
+//COMPLEJIDAD= O(1)
+//POST={Elimina el valor de la ultima fila de la columna indicada}
+void quitarValorTablero (tablero &t, int col);
 
 //PRE={fila >= 0, ncolumnas >=0, filaInciales >=0}
 //COMPLEJIDAD= O(n²)
@@ -97,12 +109,12 @@ bool estaLlenoTablero (tablero t);
 
 //PRE={}
 //COMPLEJIDAD= O(1)
-//POST={Devuelve el numero de filas que tiene el tablero}
+//POST={Devuelve el numero de filas reales que tiene el tablero}
 int obtenerNumFilas (tablero t);
 
 //PRE={}
 //COMPLEJIDAD= O(1)
-//POST={Devueve el numero de columnas que tiene el tablero}
+//POST={Devueve el numero de columnas reales que tiene el tablero}
 int obtenerNumColumnas(tablero t);
 
 //PRE={col>=1}
@@ -111,15 +123,15 @@ int obtenerNumColumnas(tablero t);
 int obtenerValorOcupadas(tablero t, int col);
 
 
-//PRE={}
+//PRE={nfilas >= 1, ncols >= 1}
 //COMPLEJIDAD=O(n)
-//POST={Se encarga de mostrar el valor que hay nen cada fila de ocupadas}
+//POST={Se encarga de mostrar los valores que hay en una columna}
 void dumpColumna(tablero &t, int nfilas,int col);
 
 
 //PRE={}
 //COMPLEJIDAD=O()
-//POST={Hace una repersentacion del tablero, nos sirve, para ver como esta alamacenado el tablero en memoria}
+//POST={Hace una repersentacion del tablero, nos sirve, para ver como esta alamacenado el tablero en memoria y verificar si las fusiones se hacen correctamente}
 void dumpTablero(tablero &t, int nfilas, int ncols) ;
 
 
@@ -177,7 +189,21 @@ void fusionSimpleSup(tablero &t, int columna, int fila, int &puntuacion);
 void fusionDerIzq (tablero &t, int fila, int columna, int &puntuacion);
 
 
+//PRE={columna >= 1, fila >= 1}
+//COMPLEJIDAD=O(n)
+//POST={Se encarga de eliminar el numero de la posicion indicada y eliminar los huecos que haya en las casillas vacias}
+//NOTA: No hace falta implementar pruebas ya que se llaman a metodos que ya esta probados
+void eliminarValorTablero(tablero &t, int fila, int col);
 
-void fusionFilaAdyacentes (tablero &t, int colActiva, int valorActual, int valorPrevio);
+void compactarColumna(tablero &t,int columna);
+
+void compactarTablero(tablero &t);
+
+
+
+
+
+
+
 
 #endif //UNI_PROJECTS_TABLERO_H

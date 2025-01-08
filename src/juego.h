@@ -34,6 +34,8 @@ void repintarTablero (Juego &juego);
 //POST={Se encarga de arrancar el entorno, leer el fichero de configuracion y pintar el tablero}
 void inicializarJuego(Juego &juego);
 
+void ejemploDefensa (Juego &j);
+
 //PRE={}
 //COMPLEJIDAD=O(n)
 //POST={Se encarga de llevar a cabo todas las operaciones, del juego, dependiendo de le tecla puslsada}

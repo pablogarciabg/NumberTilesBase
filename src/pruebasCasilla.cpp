@@ -50,6 +50,8 @@ void pruebaObtenerValorCasilla (){
 
 void pruebaVaciarCasilla(){
     casilla csa;
+
+    ponerValor(csa, 8);
     vaciarCasilla(csa);
 
     if (obtenerValorCasilla(csa)!=0){

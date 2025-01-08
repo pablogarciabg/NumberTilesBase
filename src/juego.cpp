@@ -7,6 +7,8 @@
 #include "Tablero.h"
 #include "cmath"
 #include <iostream>
+#include "pruebasCasilla.h"
+#include "pruebasTablero.h"
 
 void repintarTablero(Juego &juego) {
     for (int col = 0; col < juego.config.totalColumnas; ++col) {
@@ -96,17 +98,23 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
 void play(Juego &juego) {
 
     const int BASE_INICIO = 1;
-    int columna, fila, puntuacion;
+    int columna, fila, puntuacion, pulsacionF1;
     columna = BASE_INICIO;
     fila= obtenerValorOcupadas(juego.tab, columna);
+    pulsacionF1 = 0;
 
     puntuacion = 0;
-
     string msg;
     msg = " ";
     bool salir = false;
+    int valorLanzador;
 
-    int valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
+    if (juego.config.comoIniciar == 0){
+        valorLanzador = pow(2, 1 + rand() % 12);
+    } else {
+        valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
+    }
+
 
     TipoTecla tecla;
 
@@ -119,7 +127,6 @@ void play(Juego &juego) {
         switch (tecla) {
             case TEnter: {
 
-                int valorSuma = 0;
 
                 int cont;
                 cont = 0;
@@ -171,21 +178,14 @@ void play(Juego &juego) {
 
 
 
-//                if (juego.tab[columna-1].fila[fila-1]==juego.tab[columna-1].fila[fila-2]){
-//
-//                    entornoEliminarNumero(fila-2, columna-1);
-//
-//                    juego.tab[columna-1].fila[fila-2] = juego.tab[columna-1].fila[fila-1] + juego.tab[columna-1].fila[fila-2];
-//                    valorSuma=juego.tab[columna].fila[fila-1];
-//
-//                    entornoPonerNumero(fila-2, columna-1, valorSuma);
-//                    juego.tab[columna-1].ocupadas--;
-//                }
+
+
             }
 
                 break;
 
             case TDerecha:
+
                 entornoQuitarNumeroLanzador(columna - 1);
 
                 if (columna < juego.config.totalColumnas)
@@ -209,13 +209,31 @@ void play(Juego &juego) {
                 break;
 
             case TF1:
+            {
+                cout<< "Se ha pulsado la tecla F1\n";
+                cout << "Valor lanzador = "<< valorLanzador << "\n";
+                pulsacionF1++;
+                if (pulsacionF1 <= 3){
+                    if (juego.config.comoIniciar == 0){
+                        valorLanzador = pow(2, 1 + rand() % 12);
+                    } else {
+                        valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
+                    }
+                    entornoPonerNumeroLanzador(valorLanzador, columna-1);
+                }
+                cout << "Valor lanzador = "<< valorLanzador << "\n";
+            }
+
                 break;
+
             case TF2:
                 break;
 
             case TSalir:
                 msg = "Has abandonado";
                 salir = true;
+                entornoMostrarMensajeFin(msg);
+                entornoPausa(0.5);
                 break;
             case TNada:
                 break;
@@ -224,4 +242,17 @@ void play(Juego &juego) {
     }
 
 
+}
+
+int main (){
+    Juego juego;
+
+    inicializarJuego(juego);
+    play(juego);
+//    pruebasGeneralesCasilla();
+//    pruebasGeneralesTablero();
+
+
+
+    return 0;
 }

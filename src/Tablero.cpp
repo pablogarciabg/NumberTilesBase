@@ -63,6 +63,39 @@ void quitarValorTablero(tablero &t, int col) {
 
 }
 
+void recalcularOcupadas(tablero &t,int columna) {
+    int total=0;
+    for (int fila = 1; fila <= MAX_FIL;fila++) {
+       if (obtenerValorTablero(t,fila,columna)!=0) {
+           total++;
+       }
+    }
+
+    t[columna-1].ocupadas=total;
+}
+
+void compactarColumna(tablero &t,int columna) {
+
+    for (int fila = 1; fila <= MAX_FIL; ++fila) {
+        if (obtenerValorTablero(t,fila,columna)==0) {
+            //Buscar la siguiente fila llena
+            bool enc=false;
+            int filaLlena = fila+1;
+            while (!enc && filaLlena<=MAX_FIL) {
+                if (obtenerValorTablero(t,filaLlena,columna)!=0) {
+                    int aux = obtenerValorTablero(t,filaLlena,columna);
+                    //Intercambiar valores entre fila y filaLlena
+                    reemplazarValorTablero(t,columna,fila,aux);
+                    reemplazarValorTablero(t,columna,filaLlena,0);
+                    enc=true;
+                } else {
+                    filaLlena++;
+                }
+            }
+        }
+    }
+
+}
 //Elimina una casilla, subiendo el resto hacia arriba
 void eliminarValorTablero(tablero &t, int fila, int col) {
 
@@ -71,21 +104,16 @@ void eliminarValorTablero(tablero &t, int fila, int col) {
       //b) Si no es la última, poner a 0 esta fila, y subir el resto hacia arriba.
       //  Recorrer desde fila actual hacia abajo, y subir una fila hacia arriba
 
-    if (fila== obtenerValorOcupadas(t,col)) {
+    if (fila == obtenerValorOcupadas(t,col)) {
         //Estamos en la ultima
         quitarValorTablero(t,col);
     } else {
         //No estoy en la ultima, y tengo que desplazar el hueco hasta el final
-        int aux;
-        reemplazarValorTablero(t,fila, col,0);
+        reemplazarValorTablero(t,col, fila,0);
 
-        for (int fil=fila;fil<=MAX_FILAS;fil++) {
-            aux = obtenerValorTablero(t,fila+1,col);
-            reemplazarValorTablero(t,col,fila,aux);
-        }
+        compactarColumna(t,col);
+        recalcularOcupadas(t,col);
 
-        //Cambio en base-0
-        t[col-1].ocupadas--;
     }
 }
 
@@ -141,7 +169,7 @@ void fusionTriple(tablero &t, int columna, int fila, int &puntuacion) {
     eliminarValorTablero(t, fila, columna - 1);
     eliminarValorTablero(t, fila, columna + 1);
     eliminarValorTablero(t, fila, columna);
-    eliminarValorTablero(t, fila, columna);
+    quitarValorTablero(t, columna);
     resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
     puntuacion = puntuacion + resultadoFusion;
     ponerValorTablero(t, columna, resultadoFusion);
@@ -180,7 +208,7 @@ void fusionDobleDer(tablero &t, int columna, int fila, int &puntuacion) {
     resultadoFusion = valorSuperior + valorDer + valorActual;
 
     //Eliminar las casillas fusionadas
-    quitarValorTablero(t, columna + 1);
+    eliminarValorTablero(t,fila, columna + 1); //der
     quitarValorTablero(t, columna);
     quitarValorTablero(t, columna);
     resultadoFusion = aproximarValorPotencia(t, resultadoFusion);
@@ -484,13 +512,10 @@ bool aplicarNuevoValorFila(tablero &t, int colActiva, int &puntuacion) {
 void ponerValorTablero(tablero &t, int col, int valor) {
 
     pasarColumnaBase0(col);
-
-    //ponerValor(t[col].fila[fila], valor);
-
-    //Asigna a la fila siguiente libre (valor ocupadas en base 1) el valor a poner en la columna.
-    t[col].fila[t[col].ocupadas] = valor;
-
-    t[col].ocupadas = t[col].ocupadas + 1;
+    //Obtenemos ocupadas de esta forma ya que sino cambiariamos de base 2 veces
+    int ocupadas = t[col].ocupadas;
+    ponerValor(t[col].fila[ocupadas], valor);
+    t[col].ocupadas++;
 }
 
 void reemplazarValorTablero (tablero &t, int columna, int fila, int valor){
@@ -573,7 +598,7 @@ bool estaLlenaColumnaTablero(tablero t, int col) {
     while (!vacia){
 
         if (fila <= MAX_FILAS){
-            if (obtenerValorTablero(t, fila, col) != 0){
+            if (obtenerValorTablero(t, fila, col) == 0){
                 vacia = true;
             }
         }
@@ -624,6 +649,7 @@ bool estaLlenoTablero(tablero t) {
     return lleno;
 }
 
+
 int obtenerNumFilas(tablero t) {
     return MAX_FIL;
 }
@@ -631,3 +657,13 @@ int obtenerNumFilas(tablero t) {
 int obtenerNumColumnas(tablero t) {
     return MAX_COLUMNAS;
 }
+
+
+
+/**/
+void compactarTablero(tablero &t) {
+    for (int col = 1; col <= MAX_COLUMNAS ; ++col) {
+        compactarColumna(t,col);
+    }
+}
+

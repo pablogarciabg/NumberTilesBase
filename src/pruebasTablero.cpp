@@ -89,10 +89,11 @@ void pruebaPasarFilaBase0() {
 void pruebaIniciarTableroAleatorio() {
 
     tablero t;
-    int fila;
-    int columna;
+    int fila = MAX_FIL;
+    int columna = MAX_COLUMNAS;
     int filasInciales = 3;
     int comoIniciar = 12;
+    vaciarTablero(t);
     iniciarTableroAleatorio(t, fila, columna, filasInciales, comoIniciar);
 
     bool correcto = true;
@@ -140,16 +141,15 @@ void pruebaPonerValorTablero01() {
     int fila;
     int columna;
     int valorEsperado;
+    vaciarTablero(t);
 
-    fila = 2;
     columna = 4;
     valorEsperado = 16;
 
     ponerValorTablero(t, columna, valorEsperado);
 
-    if (obtenerValorTablero(t, fila, columna) != valorEsperado) {
-        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "
-             << columna << "\n";
+    if (obtenerValorTablero(t, 1, columna) != valorEsperado) {
+        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "<< columna << "\n";
     }
 
 
@@ -160,16 +160,15 @@ void pruebaPonerValorTablero02() {
     int fila;
     int columna;
     int valorEsperado;
+    vaciarTablero(t);
 
-    fila = 0;
-    columna = 0;
+    columna = 1;
     valorEsperado = 32;
 
     ponerValorTablero(t, columna, valorEsperado);
 
-    if (obtenerValorTablero(t, fila, columna) != valorEsperado) {
-        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "
-             << columna << "\n";
+    if (obtenerValorTablero(t, 1, columna) != valorEsperado) {
+        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "<< columna << "\n";
     }
 }
 
@@ -178,16 +177,15 @@ void pruebaPonerValorTablero03() {
     int fila;
     int columna;
     int valorEsperado;
+    vaciarTablero(t);
 
-    fila = 7;
     columna = 7;
     valorEsperado = 128;
 
     ponerValorTablero(t, columna, valorEsperado);
 
-    if (obtenerValorTablero(t, fila, columna) != valorEsperado) {
-        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "
-             << columna << "\n";
+    if (obtenerValorTablero(t, 1, columna) != valorEsperado) {
+        cout << "Error al poner el valorEsperado " << valorEsperado << " en la fila " << fila << " y en la columna "<< columna << "\n";
     }
 }
 
@@ -203,14 +201,14 @@ void pruebaObtenerValorTablero01() {
     int columna;
     tablero t;
     int valor;
+    vaciarTablero(t);
 
-    fila = 0;
     columna = 0;
     valor = 16;
 
     ponerValorTablero(t, columna, valor);
 
-    if (obtenerValorTablero(t, fila, columna) != valor) {
+    if (obtenerValorTablero(t, 1, columna) != valor) {
         cout << "Error al obtener el valor " << valor << " en la fila " << fila << " y en la columna " << columna
              << "\n";
     }
@@ -223,8 +221,8 @@ void pruebaObtenerValorTablero02() {
     int columna;
     tablero t;
     int valor;
+    vaciarTablero(t);
 
-    fila = 7;
     columna = 7;
     valor = 128;
 
@@ -233,7 +231,7 @@ void pruebaObtenerValorTablero02() {
 
     ponerValorTablero(t, columna, valor);
 
-    if (obtenerValorTablero(t, fila, columna) != valor) {
+    if (obtenerValorTablero(t, 1, columna) != valor) {
         cout << "Error al obtener el valor " << valor << " en la fila " << fila << " y en la columna " << columna
              << "\n";
     }
@@ -246,8 +244,8 @@ void pruebaObtenerValorTablero03() {
     int columna;
     tablero t;
     int valor;
+    vaciarTablero(t);
 
-    fila = 3;
     columna = 4;
     valor = 4;
 
@@ -256,7 +254,7 @@ void pruebaObtenerValorTablero03() {
 
     ponerValorTablero(t, columna, valor);
 
-    if (obtenerValorTablero(t, fila, columna) != valor) {
+    if (obtenerValorTablero(t, 1, columna) != valor) {
         cout << "Error al obtener el valor " << valor << " en la fila " << fila << " y en la columna " << columna
              << "\n";
     }
@@ -272,12 +270,12 @@ void pruebaObtenerValorTablero() {
 
 void pruebaEstaVaciaCasillaTablero01() {
 
-    int nfila;
-    int ncolumna;
+    int nfila = MAX_FIL;
+    int ncolumna = MAX_COLUMNAS;
     tablero t;
     int filasIniciales;
     int comoIniciar = 12;
-
+    vaciarTablero(t);
     filasIniciales = 3;
 
     iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales, comoIniciar);
@@ -292,14 +290,15 @@ void pruebaEstaVaciaCasillaTablero01() {
 
 void pruebaEstaVaciaCasillaTablero02() {
 
-    int nfila;
-    int ncolumna;
+    int nfila = MAX_FIL;
+    int ncolumna = MAX_COLUMNAS;
     tablero t;
     int filasIniciales;
     int fila;
     int columna;
     int comoIniciar = 12;
 
+    vaciarTablero(t);
     filasIniciales = 3;
 
     iniciarTableroAleatorio(t, nfila, ncolumna, filasIniciales, comoIniciar);
@@ -338,26 +337,15 @@ void pruebasEstaLlenaColumnaTablero() {
     tablero t;
     int columna = 2;
     int valor = 128;
+    vaciarTablero(t);
 
-    pasarColumnaBase0(columna);
 
-    //LLenamos la fila 2, para comprobar que funciona la funcion
-    for (int fila = 0; fila < MAX_FIL; fila++) {
+    //LLenamos la columna 2, para comprobar que funciona la funcion
+    for (int fila = 1; fila <= MAX_FIL; fila++) {
         ponerValorTablero(t, columna, valor);
     }
 
-    estaLlenaColumnaTablero(t, columna);
-    bool llena = true;
-    int fila = 0;
-    while (llena && fila < MAX_FIL) {
-        if (obtenerValorTablero(t, fila, columna) == 0) {
-            llena = false;
-        } else {
-            fila++;
-        }
-    }
-
-    if (!llena) {
+    if (!estaLlenaColumnaTablero(t, columna)) {
         cout << "Error, la columna 2, deberia estar llena\n";
     }
 }
@@ -820,6 +808,7 @@ void pruebaFusionCaso7() {
      * 4    2   8
      * 64   32  64
      *      12
+     *
      */
 
     columna = 1;
@@ -934,6 +923,111 @@ void pruebaAproximarValorPotencia(){
 
 }
 
+void pruebaQuitarValorTablero (){
+
+    tablero t;
+    int valor;
+    int columna;
+
+    columna = 1;
+    valor = 16;
+    vaciarTablero(t);
+    ponerValorTablero(t, columna, valor);
+    quitarValorTablero(t, columna);
+
+    if (obtenerValorTablero(t, t[columna].ocupadas, columna) != 0){
+        cout << "Error al quitar el valor del tablero";
+    }
+}
+
+void pruebaReemplazarValorTablero (){
+
+    tablero t;
+    int valor, nuevoValor, columna, fila;
+
+    vaciarTablero(t);
+    valor = 16;
+    nuevoValor = 64;
+    columna = 1;
+    fila = obtenerValorOcupadas(t, columna);
+    ponerValorTablero(t, columna, valor);
+    reemplazarValorTablero(t, columna, fila, nuevoValor);
+
+    if (obtenerValorTablero(t, fila, columna) != nuevoValor) {
+        cout << "Error al reemplazar el valor";
+    }
+}
+
+void pruebasDumpColumna (){
+
+    tablero t;
+    vaciarTablero(t);
+    //Creamos el Escanario
+    /*
+     * 4    16    64
+     * 128  32    128
+     * 8    2     8
+     */
+
+    ponerValorTablero(t, 1, 4);
+    ponerValorTablero(t, 1, 128);
+    ponerValorTablero(t, 1, 8);
+
+    dumpColumna(t, MAX_FIL, 0); //Base 0
+}
+
+void pruebasDumpTablero (){
+
+    tablero t;
+    vaciarTablero(t);
+    //Creamos el Escanario
+    /*
+     * 4    16    64
+     * 128  32    128
+     * 8    2     8
+     */
+
+    ponerValorTablero(t, 1, 4);
+    ponerValorTablero(t, 1, 128);
+    ponerValorTablero(t, 1, 8);
+
+    ponerValorTablero(t, 2, 16);
+    ponerValorTablero(t, 2, 32);
+    ponerValorTablero(t, 2, 2);
+
+    ponerValorTablero(t, 3, 64);
+    ponerValorTablero(t, 3, 128);
+    ponerValorTablero(t, 3, 8);
+
+    dumpTablero(t, MAX_FIL, MAX_COLUMNAS);
+}
+
+void pruebaCompactarTablero() {
+    tablero t;
+
+    srand(time(NULL));
+
+    //ESCENARIO
+    vaciarTablero(t);
+
+    for (int col = 1; col <= MAX_COLUMNAS; col++) {
+        while (obtenerValorOcupadas(t,col)<MAX_FIL) {
+            if (1 + (rand() % 2) == 1) {
+                ponerValorTablero(t, col, 2);
+            } else {
+                ponerValorTablero(t, col, 0);
+            }
+        }
+    }
+
+    dumpTablero(t,MAX_FIL,MAX_COLUMNAS);
+
+    //actuar
+    compactarTablero(t);
+
+    //comprobar
+    dumpTablero(t,MAX_FIL,MAX_COLUMNAS);
+}
 
 void pruebasGeneralesTablero() {
 
@@ -960,61 +1054,61 @@ void pruebasGeneralesTablero() {
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS INICIAR TABLERO\n";
-//    pruebaIniciarTableroAleatorio();
+    pruebaIniciarTableroAleatorio();
     cout << "FIN DE LAS PRUEBAS INICIAR TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS PONER VALOR TABLERO\n";
-//    pruebaPonerValorTablero();
+    pruebaPonerValorTablero();
     cout << "FIN DE LAS PRUEBAS PONER VALOR TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS OBTENER VALOR TABLERO \n";
-//    pruebaObtenerValorTablero();
+    pruebaObtenerValorTablero();
     cout << "FIN DE LAS PRUEBAS OBTENER TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS ESTA VACIA CASILLA TABLERO \n";
-//    pruebaEstaVaciaCasillaTablero();
+    pruebaEstaVaciaCasillaTablero();
     cout << "FIN DE LAS PRUEBAS ESTA VACIA CASILLA TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS VACIAR CASILLA TABLERO \n";
-//    pruebasVaciarCasillaTablero();
+    pruebasVaciarCasillaTablero();
     cout << "FIN DE LAS PRUEBAS VACIAR CASILLA TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS ESTA LLENA COLUMNA TABLERO \n";
-//    pruebasEstaLlenaColumnaTablero();
+    pruebasEstaLlenaColumnaTablero();
     cout << "FIN DE LAS PRUEBAS ESTA LLENA COLUMNA TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS OBTENER FILA VACIA TABLERO \n";
-//    pruebasObtenerPosicionVaciaColumnaTablero();
+    pruebasObtenerPosicionVaciaColumnaTablero();
     cout << "FIN DE LAS PRUEBAS OBTENER FILA VACIA TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS ESTA LLENO TABLERO \n";
-//    pruebasEstaLlenoTablero();
+    pruebasEstaLlenoTablero();
     cout << "FIN DE LAS PRUEBAS ESTA LLENO TABLERO\n";
 
     cout << "\n";
 
     cout << "INCIO DE LAS PRUEBAS OBTENER EL NUMERO DE FILAS TABLERO\n";
-//    pruebasObtenerNumFilas();
+    pruebasObtenerNumFilas();
     cout << "FIN DE LAS PRUEBAS OBTENER EL NUMERO DE FILAS TABLERO\n";
 
     cout << "\n";
 
     cout << "\nINCIO DE LAS PRUEBAS OBTENER EL NUMERO DE COLUMNAS TABLERO\n";
-//    pruebasObtenerNumColumnas();
+    pruebasObtenerNumColumnas();
     cout << "FIN DE LAS PRUEBAS OBTENER EL NUMERO DE COLUMNAS TABLERO\n";
 
     cout << "\nINCIO DE LAS PRUEBAS FUSION VALORES TABLERO\n";
@@ -1026,6 +1120,37 @@ void pruebasGeneralesTablero() {
     cout << "\nINCIO DE LAS PRUEBAS APROXIMAR VALOR POTENCIA\n";
     pruebaAproximarValorPotencia();
     cout << "FIN DE LAS PRUEBAS APROXIMAR VALOR POTENCIA\n";
+
+    cout << "\n";
+
+    cout << "\nINCIO DE LAS PRUEBAS QUITAR VALOR TABLERO\n";
+    pruebaQuitarValorTablero();
+    cout << "FIN DE LAS PRUEBAS QUITAR VALOR TABLERO\n";
+
+    cout << "\n";
+
+    cout << "\nINCIO DE LAS PRUEBAS REEMPLAZAR VALOR TABLERO\n";
+    pruebaReemplazarValorTablero();
+    cout << "FIN DE LAS PRUEBAS REEMPLAZAR VALOR TABLERO\n";
+
+    cout << "\n";
+
+    cout << "\nINCIO DE LAS PRUEBAS DUMP COLUMNA-TABLERO\n";
+    pruebasDumpColumna();
+    cout << "FIN DE LAS PRUEBAS DUMP COLUMNA-TABLERO\n";
+
+    cout << "\n";
+
+    cout << "\nINCIO DE LAS PRUEBAS DUMP TABLERO\n";
+    pruebasDumpTablero();
+    cout << "FIN DE LAS PRUEBAS DUMP TABLERO\n";
+
+    cout << "\n";
+
+    cout << "\nINCIO DE LAS PRUEBAS COMPACTAR-TABLERO DEFENSA";
+    pruebaCompactarTablero();
+    cout << "FIN DE LAS PRUEBAS PONER COMPACTAR-TABLERO DEFENSA\n";
+
 
     cout << "\n----------FIN DE LAS PRRUEBAS GENERALES TABLERO----------\n";
 }
