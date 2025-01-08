@@ -98,10 +98,11 @@ void inicializarJuego(Juego &juego) { //Crea y pinta el tablero inicial, dependi
 void play(Juego &juego) {
 
     const int BASE_INICIO = 1;
-    int columna, fila, puntuacion, pulsacionF1;
+    int columna, fila, puntuacion, pulsacionF1, contadorInverso;
     columna = BASE_INICIO;
     fila= obtenerValorOcupadas(juego.tab, columna);
     pulsacionF1 = 0;
+    contadorInverso = 3; //Se usa para la ampliacion F1
 
     puntuacion = 0;
     string msg;
@@ -213,13 +214,16 @@ void play(Juego &juego) {
                 cout<< "Se ha pulsado la tecla F1\n";
                 cout << "Valor lanzador = "<< valorLanzador << "\n";
                 pulsacionF1++;
+
                 if (pulsacionF1 <= 3){
+                    entornoContadorAyuda(valorLanzador);
                     if (juego.config.comoIniciar == 0){
                         valorLanzador = pow(2, 1 + rand() % 12);
                     } else {
                         valorLanzador = pow(2, 1 + rand() % juego.config.comoIniciar);
                     }
                     entornoPonerNumeroLanzador(valorLanzador, columna-1);
+
                 }
                 cout << "Valor lanzador = "<< valorLanzador << "\n";
             }
